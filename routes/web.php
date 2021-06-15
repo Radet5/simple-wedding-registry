@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +23,9 @@ Route::group(['prefix'=> 'admin/'], function() {
 
 
     Route::group(['middleware' => ['auth']], function () {
-        Route::get('/index', function () {
-            return response('Hi admin');
+        Route::view('/{path?}', 'adminapp');
+        Route::group(['prefix'=> 'api/v1/'], function() {
+            Route::resource('items', ItemController::class);
         });
     });
 });

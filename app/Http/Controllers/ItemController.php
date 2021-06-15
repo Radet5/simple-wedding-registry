@@ -36,7 +36,20 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $success = false;
+        try{
+            $item = new Item();
+            $item->name = $request->values['name'];
+            $item->price = $request->values['price'];
+            $item->url = $request->values['url'];
+            $item->img_filename = 'none for now';
+            $item->save();
+            $success = true;
+        } catch (Exception $e) {
+            $success = false;
+        }
+
+        return response()->json(['success'=>$success]);
     }
 
     /**
