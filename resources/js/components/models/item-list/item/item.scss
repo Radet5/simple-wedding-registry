@@ -1,0 +1,11 @@
+.m-item {
+	width: 300px;
+	border-color: #4e4e4e;
+	border-style: solid;
+	border-radius: 8px;
+	padding: 5px;
+
+	&__name {
+		font-weight: 900;
+	}
+}
