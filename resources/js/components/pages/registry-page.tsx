@@ -6,7 +6,7 @@ import ItemList from '../models/item-list/item-list';
 const RegistryPage = () => {
 	const [items, setItems] = useState([]);
 	useEffect(() => {
-		axios.get(`api/v1/items/index`)
+		axios.get(`api/v1/items`)
 			.then(res => {
 				console.log(res.data);
 				setItems(res.data.items);
