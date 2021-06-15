@@ -13,17 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix'=> 'admin/', 'middleware' => ['auth']], function() {
+Route::group(['prefix'=> 'admin/'], function() {
+    Auth::routes();
+
     Route::get('/', function () {
-        return response('Hi admin');
+        return view('welcome');
+    });
+
+
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/index', function () {
+            return response('Hi admin');
+        });
     });
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/{path?}', 'app');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
