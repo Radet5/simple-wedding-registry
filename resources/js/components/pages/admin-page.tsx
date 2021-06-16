@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
@@ -12,7 +13,7 @@ const RegistryItemControl = (props) => {
     );
 };
 
-const AdminPage = (props) => {
+const AdminPage = (props: { history: RouteComponentProps }): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         axios
