@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import RegistryPage from "./pages/registry-page";
 import TestPage from "./pages/test-page";
 
-function App() {
+function App(): JSX.Element {
     return (
         <Router>
             <Switch>

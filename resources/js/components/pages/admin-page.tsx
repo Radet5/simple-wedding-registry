@@ -3,6 +3,15 @@ import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
 
+const RegistryItemControl = (props) => {
+    return (
+        <div>
+            <button onClick={() => console.log("edit", props.id)}>edit</button>
+            <button>delete</button>
+        </div>
+    );
+};
+
 const AdminPage = (props) => {
     const [items, setItems] = useState([]);
     useEffect(() => {
@@ -17,7 +26,7 @@ const AdminPage = (props) => {
     return (
         <div className="pageWrapper">
             <div onClick={() => props.history.push("add-item")}>Add Item</div>
-            <ItemList items={items} />
+            <ItemList control={RegistryItemControl} items={items} />
         </div>
     );
 };

@@ -1,9 +1,15 @@
 import React from "react";
 import Item from "./item/item";
+import ItemInterface from "./item/item-interface";
 
 import "./item-list.scss";
 
-const ItemList = (props) => {
+interface ItemListInterface {
+    items: Array<ItemInterface>;
+    control: (props) => JSX.Element;
+}
+
+const ItemList = (props: ItemListInterface): JSX.Element => {
     return (
         <div className="itemList">
             {props.items.map((item) => {
@@ -15,9 +21,7 @@ const ItemList = (props) => {
                         <Item
                             key={`item-${item.id}`}
                             item={item}
-                            onClick={() => {
-                                alert(`oh you WANNA BUY ${item.id}???`);
-                            }}
+                            control={props.control}
                         />
                     </div>
                 );

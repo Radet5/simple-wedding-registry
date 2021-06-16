@@ -10,7 +10,7 @@ const defaultValues = {
     url: "",
 };
 
-const AddItemForm = () => {
+const AddItemForm = (): JSX.Element => {
     const [values, setValues] = useState(defaultValues);
 
     const updateForm = (event) => {

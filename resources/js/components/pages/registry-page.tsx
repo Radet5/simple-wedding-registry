@@ -3,7 +3,16 @@ import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
 
-const RegistryPage = () => {
+const RegistryItemControl = (props) => {
+    return (
+        <div>
+            <button onClick={() => console.log("buy", props.id)}>buy</button>
+            <button>reserve</button>
+        </div>
+    );
+};
+
+const RegistryPage = (): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         axios
@@ -16,7 +25,7 @@ const RegistryPage = () => {
     }, []);
     return (
         <div className="pageWrapper">
-            <ItemList items={items} />
+            <ItemList items={items} control={RegistryItemControl} />
         </div>
     );
 };

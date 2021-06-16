@@ -1,6 +1,16 @@
 import React from "react";
 
-const FormInput = (props) => {
+interface FormInputProps {
+    type: string;
+    name: string;
+    id: string;
+    value: string;
+    label: string;
+    error?: string;
+    onChange: (event) => void;
+}
+
+const FormInput = (props: FormInputProps): JSX.Element => {
     const inputClassName = props.error
         ? "m-formInput__input -error"
         : "m-formInput__input";
