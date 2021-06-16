@@ -1,0 +1,9 @@
+.m-formTextArea {
+	&__label{
+		grid-column: 1 / 2;
+	}
+	&__input{
+		grid-column: 2 / 3;
+		resize: vertical;
+	}
+}

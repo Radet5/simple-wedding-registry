@@ -42,6 +42,7 @@ class ItemController extends Controller
             $item->name = $request->values['name'];
             $item->price = $request->values['price'];
             $item->url = $request->values['url'];
+            $item->description = $request->values['description'];
             $item->img_filename = 'none for now';
             $item->save();
             $success = true;

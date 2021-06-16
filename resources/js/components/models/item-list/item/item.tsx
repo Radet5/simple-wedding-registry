@@ -16,6 +16,9 @@ const Item = (props: ItemProps): JSX.Element => {
             <div className="m-item__info">
                 <div className="m-item__name">{item.name}</div>
                 <div className="m-item__price">{`$${item.price}`}</div>
+                {item.description ? (
+                    <div className="m-item__description">{`${item.description}`}</div>
+                ) : null}
                 <a href={`http://${item.url}`} className="m-item__link">
                     {item.url}
                 </a>

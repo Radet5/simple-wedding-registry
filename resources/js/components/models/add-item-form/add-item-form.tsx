@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import FormInput from "../form-input/form-input";
+import FormTextArea from "../form-text-area/form-text-area";
 
 import "./add-item-form.scss";
 
@@ -69,6 +70,13 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 type="text"
                 onChange={updateForm}
                 label="Item Link"
+            />
+            <FormTextArea
+                id="item-description"
+                value={values["description"]}
+                name="description"
+                onChange={updateForm}
+                label="Item Description (optional)"
             />
             <input
                 className="o-addItemForm__submitButton"

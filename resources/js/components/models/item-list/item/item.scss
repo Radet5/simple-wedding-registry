@@ -8,6 +8,10 @@
 	display: flex;
 	justify-content: space-between;
 
+	&__info {
+		width: 60%;
+	}
+
 	&__name {
 		font-weight: 900;
 	}
