@@ -5,6 +5,9 @@
 	border-radius: 8px;
 	padding: 5px;
 
+	display: flex;
+	justify-content: space-between;
+
 	&__name {
 		font-weight: 900;
 	}

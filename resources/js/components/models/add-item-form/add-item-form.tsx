@@ -3,6 +3,13 @@ import axios from "axios";
 
 import FormInput from "../form-input/form-input";
 
+import "./add-item-form.scss";
+
+interface AddItemFormProps {
+    onSubmit: () => void;
+    onClose: () => void;
+}
+
 const defaultValues = {
     name: "",
     price: "",
@@ -10,7 +17,7 @@ const defaultValues = {
     url: "",
 };
 
-const AddItemForm = (): JSX.Element => {
+const AddItemForm = (props: AddItemFormProps): JSX.Element => {
     const [values, setValues] = useState(defaultValues);
 
     const updateForm = (event) => {
@@ -27,11 +34,18 @@ const AddItemForm = (): JSX.Element => {
         axios.post("/api/v1/items", { values }).then((res) => {
             console.log(res);
             console.log(res.data);
+            props.onSubmit();
+            setValues(defaultValues);
         });
     };
 
+    const close = (event) => {
+        event.preventDefault();
+        props.onClose();
+    };
+
     return (
-        <form>
+        <form className="o-addItemForm">
             <FormInput
                 id="item-name"
                 value={values["name"]}
@@ -56,7 +70,14 @@ const AddItemForm = (): JSX.Element => {
                 onChange={updateForm}
                 label="Item Link"
             />
-            <button onClick={submit}>Submit</button>
+            <input
+                className="o-addItemForm__submitButton"
+                type="submit"
+                onClick={submit}
+            />
+            <button className="o-addItemForm__closeButton" onClick={close}>
+                Close
+            </button>
         </form>
     );
 };
