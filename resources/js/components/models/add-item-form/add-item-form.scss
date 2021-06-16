@@ -9,4 +9,8 @@
     grid-template-columns: 1fr 2fr;
     grid-gap: 12px 12px;
     align-items: center;
+
+    &__imageUploader {
+        grid-column: 1/3;
+    }
 }

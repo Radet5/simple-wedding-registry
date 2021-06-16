@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ImageSelector from "../image-selector/image-selector";
 
 import FormInput from "../form-input/form-input";
 import FormTextArea from "../form-text-area/form-text-area";
@@ -20,6 +21,7 @@ const defaultValues = {
 
 const AddItemForm = (props: AddItemFormProps): JSX.Element => {
     const [values, setValues] = useState(defaultValues);
+    const [picture, setPicture] = useState("");
 
     const updateForm = (event) => {
         const target = event.target;
@@ -32,12 +34,22 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
     const submit = (event) => {
         event.preventDefault();
         console.log("submit");
-        axios.post("/api/v1/items", { values }).then((res) => {
-            console.log(res);
-            console.log(res.data);
-            props.onSubmit();
-            setValues(defaultValues);
+        const formD = new FormData();
+        Object.keys(values).forEach((key) => {
+            formD.append(key, values[key]);
         });
+        formD.append("image", picture);
+        axios
+            .post("/api/v1/items", formD, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+                props.onSubmit();
+                setValues(defaultValues);
+                setPicture("");
+            });
     };
 
     const close = (event) => {
@@ -78,6 +90,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 onChange={updateForm}
                 label="Item Description (optional)"
             />
+            <ImageSelector onSelectFile={setPicture} />
             <input
                 className="o-addItemForm__submitButton"
                 type="submit"

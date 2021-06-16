@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ItemController extends Controller
 {
@@ -38,19 +41,31 @@ class ItemController extends Controller
     {
         $success = false;
         try{
+            //need to install GD for the resizing stuff
+            $tmpPath = $request->file('image')->store('tmp_images');
             $item = new Item();
-            $item->name = $request->values['name'];
-            $item->price = $request->values['price'];
-            $item->url = $request->values['url'];
-            $item->description = $request->values['description'];
-            $item->img_filename = 'none for now';
+            $item->name = $request['name'];
+            $item->price = $request['price'];
+            $item->url = $request['url'];
+            $item->description = $request['description'];
+            $item->img_filename = $tmpPath;
             $item->save();
+            Image::make(Storage::get($tmpPath))
+                ->resize(200, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })
+                ->save(storage_path('/app/public/item_images/item-'.$item->id.'.jpg'));
+            Storage::delete($tmpPath);
+            $item->img_filename = Storage::url('item_images/item-'.$item->id.'.jpg');
+            $item->save();
+//          $path = $request->file('image')->store('public');
             $success = true;
         } catch (Exception $e) {
             $success = false;
         }
 
-        return response()->json(['success'=>$success]);
+        return response()->json(['success'=>$success, 'received'=>$request, 'item'=>$item]);
     }
 
     /**
