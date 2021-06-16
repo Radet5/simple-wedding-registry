@@ -1,5 +1,7 @@
-import React from 'react';
+import React from "react";
 
-const TestPage = () => { return 'test' }
+const TestPage = () => {
+    return "test";
+};
 
 export default TestPage;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import AddItemForm from '../models/add-item-form/add-item-form';
+import AddItemForm from "../models/add-item-form/add-item-form";
 
 const AddItemPage = () => {
-	return <AddItemForm />
-}
+    return <AddItemForm />;
+};
 
 export default AddItemPage;

@@ -1,21 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import RegistryPage from './pages/registry-page';
-import TestPage from './pages/test-page';
+import RegistryPage from "./pages/registry-page";
+import TestPage from "./pages/test-page";
 
 function App() {
     return (
         <Router>
             <Switch>
-                <Route path='/test' component={TestPage} />
-                <Route path='/' component={RegistryPage} />
+                <Route path="/test" component={TestPage} />
+                <Route path="/" component={RegistryPage} />
             </Switch>
         </Router>
     );
@@ -23,6 +18,6 @@ function App() {
 
 export default App;
 
-if (document.getElementById('react-app')) {
-    ReactDOM.render(<App />, document.getElementById('react-app'));
+if (document.getElementById("react-app")) {
+    ReactDOM.render(<App />, document.getElementById("react-app"));
 }
