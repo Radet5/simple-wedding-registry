@@ -1,6 +1,10 @@
 .o-addItemForm {
     margin: 10px auto;
-    width: fit-content;
+    width: 300px;
+    border-color: #4e4e4e;
+    border-style: solid;
+    border-radius: 8px;
+    padding: 10px 5px;
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-gap: 12px 12px;
