@@ -1,0 +1,18 @@
+.a-modal {
+
+    &__scrim {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.75);
+    }
+
+    &__contents {
+        margin: 15% auto;
+        width: fit-content;
+        background-color: white;
+        border-radius: 8px;
+    }
+}
