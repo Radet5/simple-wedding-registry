@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+import Modal from "../models/modal/modal";
 import AddItemForm from "../models/add-item-form/add-item-form";
 import ItemList from "../models/item-list/item-list";
 
@@ -34,30 +35,12 @@ const ItemControl = (items, setItems) => {
                 <button onClick={editItem}>edit</button>
                 <button onClick={deleteItem}>delete</button>
                 {displayEditForm ? (
-                    <div
-                        style={{
-                            position: "fixed",
-                            width: "100%",
-                            height: "100%",
-                            top: "0",
-                            right: "0",
-                            backgroundColor: "rgba(0, 0, 0, 0.75",
-                        }}
-                    >
-                        <div
-                            style={{
-                                margin: "25% auto",
-                                width: "fit-content",
-                                backgroundColor: "white",
-                                borderRadius: "8px",
-                            }}
-                        >
-                            <AddItemForm
-                                onSubmit={() => console.log("Submit")}
-                                onClose={editItem}
-                            />
-                        </div>
-                    </div>
+                    <Modal>
+                        <AddItemForm
+                            onSubmit={() => console.log("Submit")}
+                            onClose={editItem}
+                        />
+                    </Modal>
                 ) : null}
             </div>
         );
