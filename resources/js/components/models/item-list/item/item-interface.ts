@@ -4,6 +4,7 @@ interface ItemInterface {
     description: string;
     url: string;
     price: number;
+    public_img_path: string;
 }
 
 export default ItemInterface;

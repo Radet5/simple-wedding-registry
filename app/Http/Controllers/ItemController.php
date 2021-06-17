@@ -42,23 +42,24 @@ class ItemController extends Controller
         $success = false;
         try{
             //need to install GD for the resizing stuff
-            $tmpPath = $request->file('image')->store('tmp_images');
             $item = new Item();
             $item->name = $request['name'];
             $item->price = $request['price'];
             $item->url = $request['url'];
             $item->description = $request['description'];
-            $item->img_filename = $tmpPath;
             $item->save();
-            Image::make(Storage::get($tmpPath))
-                ->resize(200, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                })
-                ->save(storage_path('/app/public/item_images/item-'.$item->id.'.jpg'));
-            Storage::delete($tmpPath);
-            $item->img_filename = Storage::url('item_images/item-'.$item->id.'.jpg');
-            $item->save();
+            if ($request->file('image')) {
+                $tmpPath = $request->file('image')->store('tmp_images');
+                Image::make(Storage::get($tmpPath))
+                    ->resize(200, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save(storage_path('/app/public/item_images/item-'.$item->id.'.jpg'));
+                Storage::delete($tmpPath);
+                $item->public_img_path = Storage::url('item_images/item-'.$item->id.'.jpg');
+                $item->save();
+            }
 //          $path = $request->file('image')->store('public');
             $success = true;
         } catch (Exception $e) {

@@ -10,9 +10,24 @@
 
 	&__info {
 		width: 60%;
+		margin-left: 5px;
+	}
+
+	&__url {
+		margin-left: 5px;
 	}
 
 	&__name {
 		font-weight: 900;
+	}
+
+	&__price {
+		font-size: 0.9em;
+		margin-left: 5px;
+		color:#4e4e4e;
+	}
+
+	&__img {
+		border-radius: 8px;
 	}
 }

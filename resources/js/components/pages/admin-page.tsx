@@ -8,8 +8,11 @@ const apiURL = `api/v1/`;
 
 const ItemControl = (items, setItems) => {
     return function AdminItemControl(props): JSX.Element {
+        const [displayEditForm, setDisplayEditForm] = useState(false);
+
         const editItem = () => {
             console.log("edit", props.id);
+            setDisplayEditForm(!displayEditForm);
         };
 
         const deleteItem = () => {
@@ -30,6 +33,32 @@ const ItemControl = (items, setItems) => {
             <div>
                 <button onClick={editItem}>edit</button>
                 <button onClick={deleteItem}>delete</button>
+                {displayEditForm ? (
+                    <div
+                        style={{
+                            position: "fixed",
+                            width: "100%",
+                            height: "100%",
+                            top: "0",
+                            right: "0",
+                            backgroundColor: "rgba(0, 0, 0, 0.75",
+                        }}
+                    >
+                        <div
+                            style={{
+                                margin: "25% auto",
+                                width: "fit-content",
+                                backgroundColor: "white",
+                                borderRadius: "8px",
+                            }}
+                        >
+                            <AddItemForm
+                                onSubmit={() => console.log("Submit")}
+                                onClose={editItem}
+                            />
+                        </div>
+                    </div>
+                ) : null}
             </div>
         );
     };
