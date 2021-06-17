@@ -14,7 +14,7 @@ const Modal = (props: ModalProps): JSX.Element => {
                     height: "100%",
                     top: "0",
                     right: "0",
-                    backgroundColor: "rgba(0, 0, 0, 0.75",
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
                 }}
             >
                 <div
