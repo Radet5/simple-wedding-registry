@@ -17,7 +17,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
+        $items = Item::with('purchase')->get();
         return response()->json(['items'=>$items]);
     }
 
@@ -41,7 +41,6 @@ class ItemController extends Controller
     {
         $success = false;
         try{
-            //need to install GD for the resizing stuff
             $item = new Item();
             $item->name = $request['name'];
             $item->price = $request['price'];

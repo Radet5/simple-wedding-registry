@@ -9,7 +9,7 @@ const RegistryItemControl = (props) => {
     const [displayGiftPopup, setDisplayGiftPopup] = useState(false);
 
     const toggleGiftPopup = () => {
-        console.log("buy", props.id);
+        console.log("toggle gift popup", props.id);
         setDisplayGiftPopup(!displayGiftPopup);
     };
 
@@ -29,20 +29,36 @@ const RegistryItemControl = (props) => {
     );
 };
 
+const getItems = (setItems) => {
+    axios
+        .get(`api/v1/items`)
+        .then((res) => {
+            console.log(res.data);
+            setItems(res.data.items);
+        })
+        .catch((error) => console.error(error));
+};
+
 const RegistryPage = (): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        axios
-            .get(`api/v1/items`)
-            .then((res) => {
-                console.log(res.data);
-                setItems(res.data.items);
-            })
-            .catch((error) => console.error(error));
+        getItems(setItems);
+    //  setInterval(() => getItems(setItems), 2000);
     }, []);
+
     return (
         <div className="pageWrapper">
-            <ItemList items={items} control={RegistryItemControl} />
+            <ItemList
+                filters={[{ key: "purchase", operation: "null" }]}
+                items={items}
+                control={RegistryItemControl}
+            />
+            <div>Already Purcahsed:</div>
+            <ItemList
+                filters={[{ key: "purchase", operation: "notnull" }]}
+                items={items}
+                control={() => <div></div>}
+            />
         </div>
     );
 };
