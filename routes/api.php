@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,5 @@ use App\Http\Controllers\ItemController;
 
 Route::group(['prefix' => 'v1/'], function () {
     Route::apiResource('items', ItemController::class);
+    Route::resource('purchases', PurchaseController::class);
 });

@@ -2,12 +2,29 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
+import Modal from "../models/modal/modal";
+import GiftPopup from "../models/gift-popup/gift-popup";
 
 const RegistryItemControl = (props) => {
+    const [displayGiftPopup, setDisplayGiftPopup] = useState(false);
+
+    const toggleGiftPopup = () => {
+        console.log("buy", props.id);
+        setDisplayGiftPopup(!displayGiftPopup);
+    };
+
     return (
         <div>
-            <button onClick={() => console.log("buy", props.id)}>buy</button>
-            <button>reserve</button>
+            <button onClick={toggleGiftPopup}>I want to give this!</button>
+            {displayGiftPopup ? (
+                <Modal>
+                    <GiftPopup
+                        id={props.id}
+                        name={props.name}
+                        onClose={toggleGiftPopup}
+                    />
+                </Modal>
+            ) : null}
         </div>
     );
 };
