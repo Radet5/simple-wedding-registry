@@ -18,20 +18,22 @@ interface ItemListInterface {
 
 const filter = (item, filters) => {
     let passes = true;
-    filters.forEach((filter) => {
-        switch (filter.operation) {
-            case "null":
-                if (!(item[filter.key] === null)) {
-                    passes = false;
-                }
-                break;
-            case "notnull":
-                if (item[filter.key] === null) {
-                    passes = false;
-                }
-                break;
-        }
-    });
+    if (filters) {
+        filters.forEach((filter) => {
+            switch (filter.operation) {
+                case "null":
+                    if (!(item[filter.key] === null)) {
+                        passes = false;
+                    }
+                    break;
+                case "notnull":
+                    if (item[filter.key] === null) {
+                        passes = false;
+                    }
+                    break;
+            }
+        });
+    }
     return passes;
 };
 
