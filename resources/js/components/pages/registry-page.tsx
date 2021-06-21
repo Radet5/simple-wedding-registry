@@ -43,7 +43,7 @@ const RegistryPage = (): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         getItems(setItems);
-    //  setInterval(() => getItems(setItems), 2000);
+        //  setInterval(() => getItems(setItems), 2000);
     }, []);
 
     return (

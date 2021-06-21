@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Redis;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -17,8 +18,15 @@ class ItemController extends Controller
      */
     public function index()
     {
+        $cachedItems = Redis::get('items');
+
+        if (isset($cachedItems)) {
+            $items = json_decode($cachedItems, false);
+            return response()->json(['items'=>$items, 'redis'=>true]);
+        }
         $items = Item::with('purchase')->get();
-        return response()->json(['items'=>$items]);
+        Redis::set('items', $items);
+        return response()->json(['items'=>$items, 'redis'=>false]);
     }
 
     /**
@@ -47,6 +55,7 @@ class ItemController extends Controller
             $item->url = $request['url'];
             $item->description = $request['description'];
             $item->save();
+            Redis::del('items');
             if ($request->file('image')) {
                 $tmpPath = $request->file('image')->store('tmp_images');
                 Image::make(Storage::get($tmpPath))

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redis;
 
 class PurchaseController extends Controller
 {
@@ -55,6 +56,7 @@ class PurchaseController extends Controller
             $purchase->item_id = $request['itemId'];
             $purchase->save();
             $success = true;
+            Redis::del('items');
         } catch (Exception $e) {
             $success = false;
         }

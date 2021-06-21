@@ -78,7 +78,11 @@ const AdminPage = (): JSX.Element => {
                     Add Item
                 </div>
             )}
-            <ItemList control={ItemControl(items, setItems)} items={items} />
+            <ItemList
+                control={ItemControl(items, setItems)}
+                filters={[]}
+                items={items}
+            />
         </div>
     );
 };
