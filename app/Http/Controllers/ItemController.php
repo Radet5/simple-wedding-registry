@@ -6,6 +6,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -27,6 +28,35 @@ class ItemController extends Controller
         $items = Item::with('purchase')->get();
         Redis::set('items', $items);
         return response()->json(['items'=>$items, 'redis'=>false]);
+    }
+
+    public function sseIndex()
+    {
+        $response = new StreamedResponse(function() {
+            $go = true;
+            while(true) {
+                $cachedItems = Redis::get('items');
+                if (isset($cachedItems)) {
+                    $items = json_decode($cachedItems, false);
+                    echo 'data: ' . json_encode($items) . "\n\n";
+                    ob_flush();
+                    flush();
+                    usleep(2000000);
+                }
+                else {
+                    $items = Item::with('purchase')->get();
+                    Redis::set('items', $items);
+                    echo 'data: ' . json_encode($items) . "\n\n";
+                    ob_flush();
+                    flush();
+                    usleep(2000000);
+                }
+            }
+        });
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cach-Control', 'no-cache');
+        return $response;
     }
 
     /**

@@ -29,6 +29,21 @@ const RegistryItemControl = (props) => {
     );
 };
 
+const getItemsSSE = (setItems) => {
+    const sse = new EventSource(`api/v1/sse-items`, { withCredentials: true });
+    sse.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        console.log(data);
+        setItems(data);
+    };
+    sse.onerror = (error) => {
+        console.error("sse error!");
+        console.error(error);
+        sse.close();
+        return () => sse.close();
+    };
+};
+
 const getItems = (setItems) => {
     axios
         .get(`api/v1/items`)
@@ -42,7 +57,7 @@ const getItems = (setItems) => {
 const RegistryPage = (): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
-        getItems(setItems);
+        getItemsSSE(setItems);
         //  setInterval(() => getItems(setItems), 2000);
     }, []);
 

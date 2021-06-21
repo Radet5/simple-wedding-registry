@@ -23,4 +23,8 @@ use App\Http\Controllers\PurchaseController;
 Route::group(['prefix' => 'v1/'], function () {
     Route::apiResource('items', ItemController::class);
     Route::resource('purchases', PurchaseController::class);
+
+    Route::group(['middleware' => ['sse']], function () {
+        Route::get('sse-items', [ItemController::class, 'sseIndex']);
+    });
 });
