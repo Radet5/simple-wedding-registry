@@ -19,7 +19,7 @@ const Item = (props: ItemProps): JSX.Element => {
                 {item.public_img_path ? (
                     <img
                         className="m-item__img"
-                        src={`http://127.0.0.1:8000${item.public_img_path}`}
+                        src={`${item.public_img_path}`}
                     />
                 ) : null}
                 {item.description ? (
