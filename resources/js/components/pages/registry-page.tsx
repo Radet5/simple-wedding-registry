@@ -40,7 +40,8 @@ const getItemsSSE = (setItems) => {
         console.error("sse error!");
         console.error(error);
         sse.close();
-        return () => sse.close();
+        getItemsSSE(setItems);
+        //return () => sse.close();
     };
 };
 

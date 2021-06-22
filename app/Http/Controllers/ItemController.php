@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Str;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -33,15 +34,22 @@ class ItemController extends Controller
     public function sseIndex()
     {
         $response = new StreamedResponse(function() {
-            $go = true;
-            while(true) {
+            $cacheId = Str::uuid()->toString();
+            $interval = 200000;//us
+            $ttl = 60;//seconds
+            $currentCache = true;
+            while($currentCache) {
                 $cachedItems = Redis::get('items');
                 if (isset($cachedItems)) {
-                    $items = json_decode($cachedItems, false);
-                    echo 'data: ' . json_encode($items) . "\n\n";
+                    $currentCache = Redis::get('items_ses_'.$cacheId);
+                    if ($currentCache != $cachedItems) {
+                        Redis::set('items_ses_'.$cacheId, $cachedItems, 'EX', $ttl);
+                        $items = json_decode($cachedItems, false);
+                        echo 'data: ' . json_encode($items) ."\n\n";
+                    }
                     ob_flush();
                     flush();
-                    usleep(2000000);
+                    usleep($interval);
                 }
                 else {
                     $items = Item::with('purchase')->get();
@@ -49,8 +57,9 @@ class ItemController extends Controller
                     echo 'data: ' . json_encode($items) . "\n\n";
                     ob_flush();
                     flush();
-                    usleep(2000000);
+                    usleep($interval);
                 }
+                $currentCache = Redis::get('items_ses_'.$cacheId);
             }
         });
         $response->headers->set('Content-Type', 'text/event-stream');
