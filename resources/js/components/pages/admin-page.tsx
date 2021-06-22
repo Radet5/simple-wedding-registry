@@ -10,6 +10,13 @@ const apiURL = `api/v1/`;
 const ItemControl = (items, setItems) => {
     return function AdminItemControl(props): JSX.Element {
         const [displayEditForm, setDisplayEditForm] = useState(false);
+        const [csrf, setcsrf] = useState<Element | null>(null);
+
+        useEffect(() => {
+            const token = document.head.querySelector('meta[name="csrf-token"]');
+            console.log("crsf",token?.getAttribute('content'));
+            setcsrf(token);
+        }, [])
 
         const editItem = () => {
             console.log("edit", props.id);
@@ -19,7 +26,9 @@ const ItemControl = (items, setItems) => {
         const deleteItem = () => {
             console.log("delete", props.id);
             axios
-                .delete(`${apiURL}items/${props.id}`)
+                .delete(`${apiURL}items/${props.id}`, {headers: {
+                    "X-CSRF-TOKEN'": csrf,
+                }})
                 .then((res) => {
                     console.log(res);
                     const remainingItems = items.filter((item) => {
