@@ -5,18 +5,18 @@ import Modal from "../models/modal/modal";
 import AddItemForm from "../models/add-item-form/add-item-form";
 import ItemList from "../models/item-list/item-list";
 
-const apiURL = `api/v1/`;
+const apiURL = `/api/v1/`;
 
 const ItemControl = (items, setItems) => {
     return function AdminItemControl(props): JSX.Element {
         const [displayEditForm, setDisplayEditForm] = useState(false);
-        const [csrf, setcsrf] = useState<Element | null>(null);
+        //const [csrf, setcsrf] = useState<Element | null>(null);
 
-        useEffect(() => {
-            const token = document.head.querySelector('meta[name="csrf-token"]');
-            console.log("crsf",token?.getAttribute('content'));
-            setcsrf(token);
-        }, [])
+        //useEffect(() => {
+        //    const token = document.head.querySelector('meta[name="csrf-token"]');
+        //    console.log("crsf",token?.getAttribute('content'));
+        //    setcsrf(token);
+        //}, [])
 
         const editItem = () => {
             console.log("edit", props.id);
@@ -26,9 +26,7 @@ const ItemControl = (items, setItems) => {
         const deleteItem = () => {
             console.log("delete", props.id);
             axios
-                .delete(`${apiURL}items/${props.id}`, {headers: {
-                    "X-CSRF-TOKEN'": csrf,
-                }})
+                .delete(`${apiURL}items/${props.id}`)
                 .then((res) => {
                     console.log(res);
                     const remainingItems = items.filter((item) => {
