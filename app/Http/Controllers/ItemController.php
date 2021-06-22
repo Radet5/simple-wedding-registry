@@ -28,6 +28,7 @@ class ItemController extends Controller
         }
         $items = Item::with('purchase')->get();
         Redis::set('items', $items);
+        Redis::set('items_timestamp', time());
         return response()->json(['items'=>$items, 'redis'=>false]);
     }
 
@@ -40,10 +41,11 @@ class ItemController extends Controller
             $currentCache = true;
             while($currentCache) {
                 $cachedItems = Redis::get('items');
+                $cachedItemsTimestamp = Redis::get('items_timestamp');
                 if (isset($cachedItems)) {
-                    $currentCache = Redis::get('items_ses_'.$cacheId);
-                    if ($currentCache != $cachedItems) {
-                        Redis::set('items_ses_'.$cacheId, $cachedItems, 'EX', $ttl);
+                    $currentCacheTimestamp = Redis::get('items_ses_'.$cacheId);
+                    if ($currentCacheTimestamp != $cachedItemsTimestamp) {
+                        Redis::set('items_ses_'.$cacheId, $cachedItemsTimestamp, 'EX', $ttl);
                         $items = json_decode($cachedItems, false);
                         echo 'data: ' . json_encode($items) ."\n\n";
                     }
@@ -54,6 +56,7 @@ class ItemController extends Controller
                 else {
                     $items = Item::with('purchase')->get();
                     Redis::set('items', $items);
+                    Redis::set('items_timestamp', time());
                     echo 'data: ' . json_encode($items) . "\n\n";
                     ob_flush();
                     flush();
