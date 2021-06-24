@@ -53,7 +53,7 @@ class PurchaseController extends Controller
             'lastName.required' => 'Last name is required',
             'email.required' => 'Email is required',
             'email.email' => 'Please enter a valid email address',
-            'address.required' => 'We need you address so we can send a thank you!',
+            'address.required' => 'We need your address so we can send a thank you!',
         ])->validate();
 
         try{

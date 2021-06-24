@@ -5,5 +5,18 @@
 	&__input{
 		grid-column: 2 / 3;
 		resize: vertical;
+
+		&.-error {
+			border-color: #CC2401;
+			border-width: 2px;
+			border-style: dashed;
+		}
+	}
+
+	&__validation-error {
+		color: #CC2401;
+		font-size: 0.75em;
+		grid-column: 1 / 3;
+		margin: -3px 0 3px auto;
 	}
 }
