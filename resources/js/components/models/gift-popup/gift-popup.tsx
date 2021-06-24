@@ -76,8 +76,26 @@ const GiftPopup = (props: GiftPopupProps): JSX.Element => {
         "contact?": (
             <div className="o-giftPopup__control">
                 <div className="o-giftPopup__prompt">
+                    <p>
+                        Once you have successfully submitted the form below this
+                        item will be reserved in our registry for one week. If
+                        you purchase the item in that time period please return
+                        to this site and let us know that you have bought it
+                        either by using the link we will email to you or by
+                        clicking the button at the top of the page and entering
+                        the same email that you provide below.
+                    </p>
+                    <p>
+                        Please note that this does not mean the item is reserved
+                        at any store; just that it will not appear on our
+                        registry list during the time which is it still marked
+                        as reserved.
+                    </p>
                     <p>Thank you!</p>
-                    <ReserveForm id={props.id} />
+                    <ReserveForm
+                        id={props.id}
+                        onSubmit={() => console.log("submitting boughtform")}
+                    />
                 </div>
             </div>
         ),

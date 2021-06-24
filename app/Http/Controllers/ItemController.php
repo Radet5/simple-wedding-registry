@@ -54,7 +54,7 @@ class ItemController extends Controller
                     usleep($interval);
                 }
                 else {
-                    $items = Item::with('purchase')->get();
+                    $items = Item::with(['purchase', 'reservation'])->get();
                     Redis::set('items', $items);
                     Redis::set('items_timestamp', time());
                     echo 'data: ' . json_encode($items) . "\n\n";

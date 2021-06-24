@@ -65,13 +65,28 @@ const RegistryPage = (): JSX.Element => {
     return (
         <div className="pageWrapper">
             <ItemList
-                filters={[{ key: "purchase", operation: "null" }]}
+                filters={[
+                    { key: "purchase", operation: "null" },
+                    { key: "reservation", operation: "null" },
+                ]}
                 items={items}
                 control={RegistryItemControl}
             />
             <div>Already Purcahsed:</div>
             <ItemList
-                filters={[{ key: "purchase", operation: "notnull" }]}
+                filters={[
+                    { key: "purchase", operation: "notnull" },
+                    { key: "reservation", operation: "null" },
+                ]}
+                items={items}
+                control={() => <div></div>}
+            />
+            <div>Reserved:</div>
+            <ItemList
+                filters={[
+                    { key: "purchase", operation: "null" },
+                    { key: "reservation", operation: "notnull" },
+                ]}
                 items={items}
                 control={() => <div></div>}
             />

@@ -12,4 +12,8 @@ class Item extends Model
     public function purchase() {
         return $this->hasOne(Purchase::class);
     }
+
+    public function reservation() {
+        return $this->hasOne(Reservation::class);
+    }
 }
