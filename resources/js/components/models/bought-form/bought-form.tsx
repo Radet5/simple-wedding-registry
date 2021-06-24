@@ -18,12 +18,12 @@ const defaultValues = {
     storeName: "",
     orderNumber: "",
     msg: "",
+    address: "",
 };
 
 const BoughtForm = (props: BoughtFormProps): JSX.Element => {
     const [values, setValues] = useState(defaultValues);
     const [errors, setErrors] = useState({});
-    const [submitted, setSubmitted] = useState(false);
 
     const updateForm = (event) => {
         const target = event.target;
@@ -49,7 +49,6 @@ const BoughtForm = (props: BoughtFormProps): JSX.Element => {
                 console.log(res);
                 console.log(res.data);
                 props.onSubmit();
-                setSubmitted(true);
             })
             .catch((exception) => {
                 if (exception.response.status == 422) {
@@ -62,65 +61,71 @@ const BoughtForm = (props: BoughtFormProps): JSX.Element => {
 
     return (
         <React.Fragment>
-            {submitted ? (
-                <div className="o-boughtForm__success">Item registered!</div>
-            ) : (
-                <form className="o-boughtForm">
-                    <FormInput
-                        id="first-name"
-                        value={values["firstName"]}
-                        name="firstName"
-                        type="text"
-                        onChange={updateForm}
-                        label="First Name"
-                        error={errors["firstName"]}
-                    />
-                    <FormInput
-                        id="last-name"
-                        value={values["lastName"]}
-                        name="lastName"
-                        type="text"
-                        onChange={updateForm}
-                        label="Last Name"
-                    />
-                    <FormInput
-                        id="email"
-                        value={values["email"]}
-                        name="email"
-                        type="email"
-                        onChange={updateForm}
-                        label="Email (optional)"
-                    />
-                    <FormInput
-                        id="store-name"
-                        value={values["storeName"]}
-                        name="storeName"
-                        type="text"
-                        onChange={updateForm}
-                        label="Store purchased from"
-                    />
-                    <FormInput
-                        id="order-number"
-                        value={values["orderNumber"]}
-                        name="orderNumber"
-                        type="text"
-                        onChange={updateForm}
-                        label="Order Number (if you have it)"
-                    />
-                    <FormTextArea
-                        id="msg"
-                        value={values["msg"]}
-                        name="msg"
-                        onChange={updateForm}
-                        label="Add a message here if you like"
-                    />
-                    <input
-                        className="o-addItemForm__submitButton"
-                        type="submit"
-                        onClick={submit}
-                    />
-                </form>
-            )}
+            <form className="o-boughtForm">
+                <FormInput
+                    id="first-name"
+                    value={values["firstName"]}
+                    name="firstName"
+                    type="text"
+                    onChange={updateForm}
+                    label="First Name*"
+                    error={errors["firstName"]}
+                />
+                <FormInput
+                    id="last-name"
+                    value={values["lastName"]}
+                    name="lastName"
+                    type="text"
+                    onChange={updateForm}
+                    label="Last Name*"
+                    error={errors["lastName"]}
+                />
+                <FormInput
+                    id="email"
+                    value={values["email"]}
+                    name="email"
+                    type="email"
+                    onChange={updateForm}
+                    label="Email*"
+                    error={errors["email"]}
+                />
+                <FormTextArea
+                    id="address"
+                    value={values["address"]}
+                    name="address"
+                    onChange={updateForm}
+                    label="Address*"
+                    error={errors["address"]}
+                />
+                <FormInput
+                    id="store-name"
+                    value={values["storeName"]}
+                    name="storeName"
+                    type="text"
+                    onChange={updateForm}
+                    label="Store purchased from"
+                />
+                <FormInput
+                    id="order-number"
+                    value={values["orderNumber"]}
+                    name="orderNumber"
+                    type="text"
+                    onChange={updateForm}
+                    label="Order Number (if you have it)"
+                />
+                <FormTextArea
+                    id="msg"
+                    value={values["msg"]}
+                    name="msg"
+                    onChange={updateForm}
+                    label="Add a message here if you like"
+                />
+                <input
+                    className="o-addItemForm__submitButton"
+                    type="submit"
+                    onClick={submit}
+                />
+            </form>
         </React.Fragment>
     );
 };

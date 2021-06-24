@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
+use App\Models\Item;
+use App\Mail\ItemRegistered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class PurchaseController extends Controller
 {
@@ -41,8 +45,15 @@ class PurchaseController extends Controller
         Validator::make($request->all(), [
             'itemId' => ['required'],
             'firstName' => ['required'],
+            'lastName' => ['required'],
+            'email' => ['required', 'email'],
+            'address' => ['required'],
         ], [
-            'firstName.required' => 'The rest of the fields are optional, but we do need a name at least',
+            'firstName.required' => 'First name is required',
+            'lastName.required' => 'Last name is required',
+            'email.required' => 'Email is required',
+            'email.email' => 'Please enter a valid email address',
+            'address.required' => 'We need you address so we can send a thank you!',
         ])->validate();
 
         try{
@@ -57,6 +68,10 @@ class PurchaseController extends Controller
             $purchase->save();
             $success = true;
             Redis::del('items');
+            if ($purchase->email) {
+                Log::info("Trying to email: ".$purchase->name."\n at: ".$purchase->email);
+                Mail::to($purchase->email)->send( new ItemRegistered(Item::find($purchase->item_id)));
+            }
         } catch (Exception $e) {
             $success = false;
         }
