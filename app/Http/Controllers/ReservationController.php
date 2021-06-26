@@ -80,9 +80,12 @@ class ReservationController extends Controller
      * @param  \App\Models\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function show(Reservation $reservation)
+    public function show($email)
     {
-        //
+        $items = Item::whereHas('reservation', function ($query) use ($email) {
+            $query->where('email', $email);
+        })->with('reservation')->get();
+        return response()->json(['items' => $items]);
     }
 
     /**
@@ -116,6 +119,8 @@ class ReservationController extends Controller
      */
     public function destroy(Reservation $reservation)
     {
-        //
+        $reservation->delete();
+        Redis::del('items');
+        return response()->json(['success'=>true]);
     }
 }

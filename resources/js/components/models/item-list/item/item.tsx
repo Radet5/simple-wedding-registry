@@ -29,7 +29,11 @@ const Item = (props: ItemProps): JSX.Element => {
                     {item.url}
                 </a>
             </div>
-            <props.control id={item.id} name={item.name} />
+            <props.control
+                id={item.id}
+                name={item.name}
+                reservation={item.reservation}
+            />
         </div>
     );
 };

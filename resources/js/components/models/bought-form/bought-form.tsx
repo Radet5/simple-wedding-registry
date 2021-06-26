@@ -8,6 +8,7 @@ import "./bought-form.scss";
 
 interface BoughtFormProps {
     id: number;
+    initialValues?: { firstName: string };
     onSubmit: () => void;
 }
 
@@ -22,7 +23,10 @@ const defaultValues = {
 };
 
 const BoughtForm = (props: BoughtFormProps): JSX.Element => {
-    const [values, setValues] = useState(defaultValues);
+    const [values, setValues] = useState({
+        ...defaultValues,
+        ...props.initialValues,
+    });
     const [errors, setErrors] = useState({});
 
     const updateForm = (event) => {

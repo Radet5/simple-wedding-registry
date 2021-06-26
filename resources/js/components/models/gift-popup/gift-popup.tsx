@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import ReserveForm from "../reserve-form/reserve-form";
 import BoughtForm from "../bought-form/bought-form";
+import Popup from "../popup/popup";
 
 import "./gift-popup.scss";
 
@@ -102,11 +103,9 @@ const GiftPopup = (props: GiftPopupProps): JSX.Element => {
     };
 
     return (
-        <div className="o-giftPopup">
-            <div className="o-giftPopup__title">Gift {props.name}</div>
+        <Popup title={props.name} onClose={props.onClose}>
             {questions[questionName]}
-            <button onClick={props.onClose}>Close</button>
-        </div>
+        </Popup>
     );
 };
 

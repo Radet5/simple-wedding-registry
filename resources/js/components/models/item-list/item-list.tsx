@@ -12,7 +12,7 @@ interface Filters {
 
 interface ItemListInterface {
     items: Array<ItemInterface>;
-    filters: Array<Filters>;
+    filters?: Array<Filters>;
     control: (props) => JSX.Element;
 }
 
