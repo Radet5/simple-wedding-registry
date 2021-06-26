@@ -31,5 +31,5 @@ Route::group(['prefix'=> 'admin/'], function() {
 });
 
 
-Route::view('/{path?}', 'app');
+Route::any('{any}', function () {return view('app');})->where('any', '.*');
 
