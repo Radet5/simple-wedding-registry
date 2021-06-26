@@ -84,7 +84,7 @@ const UserReservationsPage = (): JSX.Element => {
     }, [email]);
     return (
         <React.Fragment>
-            <div>Yo Buddyy {email}</div>
+            <div>Reservations for {email}</div>
             <ItemList items={items} control={ItemControl(items, setItems)} />
         </React.Fragment>
     );
