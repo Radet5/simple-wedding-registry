@@ -107,7 +107,7 @@ const BoughtForm = (props: BoughtFormProps): JSX.Element => {
                     name="storeName"
                     type="text"
                     onChange={updateForm}
-                    label="Store purchased from"
+                    label="Store"
                 />
                 <FormInput
                     id="order-number"
@@ -115,14 +115,14 @@ const BoughtForm = (props: BoughtFormProps): JSX.Element => {
                     name="orderNumber"
                     type="text"
                     onChange={updateForm}
-                    label="Order Number (if you have it)"
+                    label="Order #"
                 />
                 <FormTextArea
                     id="msg"
                     value={values["msg"]}
                     name="msg"
                     onChange={updateForm}
-                    label="Add a message here if you like"
+                    label="Personal message"
                 />
                 <input
                     className="o-addItemForm__submitButton"
