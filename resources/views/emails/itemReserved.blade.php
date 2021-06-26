@@ -3,7 +3,7 @@
 
 {{ $item->name }}
 
-<p>This item will be reserved in our registry for one week.</p>
+<p>This item will be reserved in our registry until {{ $reservation->created_at->addWeeks(1)->toFormattedDateString() }}.</p>
 <p>If you purchase the item in that time period please
 return to this site and let us know that you have bought
 it either by using the link below or by
@@ -13,6 +13,6 @@ the email address at which you recieved this message.</p>
 at any store; just that it will not appear on our registry
 list during the time which is it still marked as reserved.</p>
 
-<a href="{{ url('reservation/'.$email) }}">I bought it!</a>
+<a href="{{ url('reservation/'.$reservation->email) }}">I bought it!</a>
 
 <p>Missy & Radet</p>

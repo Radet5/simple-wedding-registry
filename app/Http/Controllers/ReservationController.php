@@ -65,7 +65,7 @@ class ReservationController extends Controller
             Redis::del('items');
             if ($reservation->email) {
                 Log::info("Trying to email: ".$reservation->name."\n at: ".$reservation->email);
-                Mail::to($reservation->email)->send( new ItemReserved(Item::find($reservation->item_id), $reservation->email));
+                Mail::to($reservation->email)->send( new ItemReserved(Item::find($reservation->item_id), $reservation));
             }
         } catch (Exception $e) {
             $success = false;
