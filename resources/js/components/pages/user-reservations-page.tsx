@@ -20,24 +20,41 @@ const ItemControl = (items, setItems) => {
             console.log("toggle popup", props.id);
             setDisplayPopup(!displayPopup);
         };
-        const submit = () => {
-            console.log("Bought");
+
+        const deleteReservation = (reservationId, itemId, items, setItems) => {
             axios
-                .delete(`/api/v1/reservations/${props.reservation.id}`)
+                .delete(`/api/v1/reservations/${reservationId}`)
                 .then((res) => {
                     console.log("Deleted reservation");
                     console.log(res);
                     const remainingItems = items.filter((item) => {
-                        return item.id != props.id;
+                        return item.id != itemId;
                     });
                     setItems(remainingItems);
                 })
                 .catch((error) => console.error(error));
         };
 
+        const submit = () => {
+            console.log("Bought");
+            deleteReservation(props.reservation.id, props.id, items, setItems);
+        };
+
         return (
             <div>
                 <button onClick={togglePopup}>I bought this</button>
+                <button
+                    onClick={() =>
+                        deleteReservation(
+                            props.reservation.id,
+                            props.id,
+                            items,
+                            setItems
+                        )
+                    }
+                >
+                    Cancel Reservation
+                </button>
                 {displayPopup ? (
                     <Modal>
                         <Popup title="Bought it" onClose={togglePopup}>
