@@ -6,7 +6,7 @@
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "lint": "eslint '**/*.{ts,js,tsx,jsx}'",
+        "lint": "eslint --ext ts,js,tsx,jsx resources/js/",
         "prod": "npm run production",
         "production": "mix --production"
     },
