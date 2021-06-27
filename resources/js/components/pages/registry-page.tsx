@@ -44,7 +44,7 @@ const getItemsSSE = (setItems) => {
 
 const getItems = (setItems) => {
     axios
-        .get(`api/v1/items`)
+        .get(`/api/v1/items`)
         .then((res) => {
             console.log(res.data);
             setItems(res.data.items);
@@ -53,9 +53,15 @@ const getItems = (setItems) => {
 };
 
 const RegistryPage = (): JSX.Element => {
+    console.log(process.env.APP_ENV);
+
     const [items, setItems] = useState([]);
     useEffect(() => {
-        getItemsSSE(setItems);
+        if (process.env.APP_ENV == "local") {
+            getItems(setItems);
+        } else {
+            getItemsSSE(setItems);
+        }
         //  setInterval(() => getItems(setItems), 2000);
     }, []);
 

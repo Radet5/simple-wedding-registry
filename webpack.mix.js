@@ -1,4 +1,13 @@
 const mix = require('laravel-mix');
+require('dotenv').config()
+let webpack = require('webpack')
+
+let dotenvplugin = new webpack.DefinePlugin({
+    'process.env': {
+        APP_ENV: JSON.stringify(process.env.APP_ENV || 'App environment'),
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+    }
+})
 
 /*
  |--------------------------------------------------------------------------
@@ -18,4 +27,9 @@ const mix = require('laravel-mix');
 mix.ts("resources/js/app.js", "public/js")
     .ts("resources/js/adminapp.js", "public/js")
     .react()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .webpackConfig({
+        plugins: [
+            dotenvplugin
+        ]
+    });
