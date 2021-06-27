@@ -26,7 +26,7 @@ class ItemController extends Controller
             $items = json_decode($cachedItems, false);
             return response()->json(['items'=>$items, 'redis'=>true]);
         }
-        $items = Item::with('purchase')->get();
+        $items = Item::with(['purchase', 'reservation'])->get();
         Redis::set('items', $items);
         Redis::set('items_timestamp', time());
         return response()->json(['items'=>$items, 'redis'=>false]);

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 
 class PurchaseController extends Controller
 {
@@ -68,7 +69,7 @@ class PurchaseController extends Controller
             $purchase->save();
             $success = true;
             Redis::del('items');
-            if ($purchase->email) {
+            if ($purchase->email && !APP::environment('local')) {
                 Log::info("Trying to email: ".$purchase->name."\n at: ".$purchase->email);
                 Mail::to($purchase->email)->send( new ItemRegistered(Item::find($purchase->item_id)));
             }

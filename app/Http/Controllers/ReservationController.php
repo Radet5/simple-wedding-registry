@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 
 class ReservationController extends Controller
 {
@@ -63,7 +64,7 @@ class ReservationController extends Controller
             $reservation->save();
             $success = true;
             Redis::del('items');
-            if ($reservation->email) {
+            if ($reservation->email && !APP::environment('local')) {
                 Log::info("Trying to email: ".$reservation->name."\n at: ".$reservation->email);
                 Mail::to($reservation->email)->send( new ItemReserved(Item::find($reservation->item_id), $reservation));
             }

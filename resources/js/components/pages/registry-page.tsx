@@ -53,10 +53,9 @@ const getItems = (setItems) => {
 };
 
 const RegistryPage = (): JSX.Element => {
-    console.log(process.env.APP_ENV);
-
     const [items, setItems] = useState([]);
     useEffect(() => {
+        console.log(process.env.APP_ENV);
         if (process.env.APP_ENV == "local") {
             getItems(setItems);
         } else {
