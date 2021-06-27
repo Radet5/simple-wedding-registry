@@ -1,4 +1,7 @@
 .o-popup {
+	max-height: 80vh;
+	min-height: fit-content;
+	overflow: auto;
 	width: 300px;
 	padding: 5px;
 }
