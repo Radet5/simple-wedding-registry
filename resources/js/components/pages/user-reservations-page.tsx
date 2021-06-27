@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import History from "history";
 
 import ItemList from "../models/item-list/item-list";
 import Popup from "../models/popup/popup";
@@ -68,7 +69,10 @@ const ItemControl = (items, setItems) => {
     };
 };
 
-const UserReservationsPage = (): JSX.Element => {
+interface Props {
+    history: History;
+}
+const UserReservationsPage = (props: Props): JSX.Element => {
     const [items, setItems] = useState([]);
     const { email } = useParams();
     useEffect(() => {
@@ -79,10 +83,24 @@ const UserReservationsPage = (): JSX.Element => {
         });
         console.log(email);
     }, [email]);
+
+    const back = (e) => {
+        e.preventDefault();
+        props.history.push("/");
+    };
+
     return (
         <React.Fragment>
             <div>Reservations for {email}</div>
             <ItemList items={items} control={ItemControl(items, setItems)} />
+            {items.length == 0 ? (
+                <p>
+                    Sorry no items were found reserved for this email address.
+                    If it has been more than a week the reservation has expired,
+                    otherwise be sure you entered your email address correctly.
+                </p>
+            ) : null}
+            <button onClick={back}>Back</button>
         </React.Fragment>
     );
 };

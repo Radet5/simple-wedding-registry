@@ -13,6 +13,6 @@ the email address at which you recieved this message.</p>
 at any store; just that it will not appear on our registry
 list during the time which is it still marked as reserved.</p>
 
-<a href="{{ url('reservation/'.$reservation->email) }}">I bought it!</a>
+<a href="{{ url('reservation/'.$reservation->email) }}">My Reserved Items</a>
 
 <p>Missy & Radet</p>

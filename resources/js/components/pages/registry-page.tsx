@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import History from "history";
 
 import ItemList from "../models/item-list/item-list";
 import GiftPopup from "../models/gift-popup/gift-popup";
+import SeeReservations from "../models/see-reservations/see-reservations";
 
 const RegistryItemControl = (props) => {
     const [displayGiftPopup, setDisplayGiftPopup] = useState(false);
@@ -52,7 +54,11 @@ const getItems = (setItems) => {
         .catch((error) => console.error(error));
 };
 
-const RegistryPage = (): JSX.Element => {
+interface Props {
+    history: History;
+}
+
+const RegistryPage = (props: Props): JSX.Element => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         console.log(process.env.APP_ENV);
@@ -66,6 +72,7 @@ const RegistryPage = (): JSX.Element => {
 
     return (
         <div className="pageWrapper">
+            <SeeReservations history={props.history} />
             <ItemList
                 filters={[
                     { key: "purchase", operation: "null" },
