@@ -1,5 +1,7 @@
 import React from "react";
 
+import Modal from "../modal/modal";
+
 import "./popup.scss";
 
 interface PopupProps {
@@ -10,11 +12,13 @@ interface PopupProps {
 
 const Popup = (props: PopupProps): JSX.Element => {
     return (
-        <div className="o-popup">
-            <div className="o-popup__title">{props.title}</div>
-            {props.children}
-            <button onClick={props.onClose}>Close</button>
-        </div>
+        <Modal>
+            <div className="o-popup">
+                <div className="o-popup__title">{props.title}</div>
+                {props.children}
+                <button onClick={props.onClose}>Close</button>
+            </div>
+        </Modal>
     );
 };
 

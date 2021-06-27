@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
-import Modal from "../models/modal/modal";
 import GiftPopup from "../models/gift-popup/gift-popup";
 
 const RegistryItemControl = (props) => {
@@ -17,13 +16,11 @@ const RegistryItemControl = (props) => {
         <div>
             <button onClick={toggleGiftPopup}>I want to give this!</button>
             {displayGiftPopup ? (
-                <Modal>
-                    <GiftPopup
-                        id={props.id}
-                        name={props.name}
-                        onClose={toggleGiftPopup}
-                    />
-                </Modal>
+                <GiftPopup
+                    id={props.id}
+                    name={props.name}
+                    onClose={toggleGiftPopup}
+                />
             ) : null}
         </div>
     );

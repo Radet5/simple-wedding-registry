@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import ItemList from "../models/item-list/item-list";
-import Modal from "../models/modal/modal";
 import Popup from "../models/popup/popup";
 import BoughtForm from "../models/bought-form/bought-form";
 
@@ -56,15 +55,13 @@ const ItemControl = (items, setItems) => {
                     Cancel Reservation
                 </button>
                 {displayPopup ? (
-                    <Modal>
-                        <Popup title="Bought it" onClose={togglePopup}>
-                            <BoughtForm
-                                id={props.id}
-                                initialValues={reservationData}
-                                onSubmit={submit}
-                            ></BoughtForm>
-                        </Popup>
-                    </Modal>
+                    <Popup title="Bought it" onClose={togglePopup}>
+                        <BoughtForm
+                            id={props.id}
+                            initialValues={reservationData}
+                            onSubmit={submit}
+                        ></BoughtForm>
+                    </Popup>
                 ) : null}
             </div>
         );
