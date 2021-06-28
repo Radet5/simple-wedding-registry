@@ -66,7 +66,7 @@ const GiftPopup = (props: GiftPopupProps): JSX.Element => {
                 <div className="o-giftPopup__prompt">
                     <p>
                         Please wait to mark this item as purchased until you
-                        have completed the transaction.
+                        have completed a transaction with a retailer.
                     </p>
                     <p>
                         However, you may mark it as reserved in the registry for
