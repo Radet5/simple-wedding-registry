@@ -1,0 +1,51 @@
+@import "./variables.scss";
+
+@font-face {
+	font-family: 'Posyden';
+	src: url('/fonts/PosydenRegular-y9Vm.otf') format('opentype');
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Exo';
+	src: url('/fonts/Exo/Exo-VariableFont_wght.ttf') format('truetype');
+	font-style: normal;
+}
+
+body {
+	font-family: 'Exo';
+	color: $baseColor;
+	background-color: black;
+}
+
+a {
+	color: $accentColor;
+}
+
+.pageWrapper {
+	margin-top: 7em;
+}
+
+.a-mainHeading {
+	background-color: black;
+	position: fixed;
+	padding: 15px 0 0;
+	margin: 0 auto;
+	top: 0;
+	width: 100vw;
+	text-align: center;
+	font-family: 'Posyden';
+	font-size: 5em;
+	color: $accentColor
+};
+
+@media (min-width: $smallScreenWidth) {
+	.pageWrapper {
+		margin-top: 9em;
+	}
+
+	.a-mainHeading {
+		font-size: 7em;
+		white-space: nowrap;
+	}
+}

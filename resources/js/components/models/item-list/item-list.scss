@@ -7,3 +7,7 @@
 		margin: 5px 0;
 	}
 }
+
+.itemList__itemContainer:last-child>div {
+	border-style: none;
+}

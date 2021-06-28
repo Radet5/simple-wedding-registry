@@ -1,33 +1,56 @@
+@import "../../../variables.scss";
+
 .m-item {
-	width: 300px;
-	border-color: #4e4e4e;
-	border-style: solid;
-	border-radius: 8px;
-	padding: 5px;
+	width: $smallItemWidth;
+	border-color: $baseColor;
+	border-style: none none groove none;
+	border-width: 1px;
+	padding: 0 0 15px;
 
 	display: flex;
 	justify-content: space-between;
 
 	&__info {
-		width: 60%;
 		margin-left: 5px;
+		display: grid;
+		grid-template-rows: 1.9em 2em;
+		column-gap: 10px;
+		grid-template-columns: auto auto;
 	}
 
-	&__url {
+	&__link {
 		margin-left: 5px;
+		grid-column: 1/1;
 	}
 
 	&__name {
 		font-weight: 900;
+		font-size: 1.5em;
+		white-space: nowrap;
+		grid-column: 1/1;
+	}
+
+	&__description {
+		grid-column: 1/1;
 	}
 
 	&__price {
 		font-size: 0.9em;
 		margin-left: 5px;
-		color:#4e4e4e;
+		color:$secondaryColor;
+		grid-column: 1/1;
 	}
 
 	&__img {
+		width: 100px;
 		border-radius: 8px;
+		grid-column: 2/2;
+		grid-row: 2/6;
+	}
+}
+
+@media (min-width: $smallScreenWidth) {
+	.m-item {
+		width: $mediumItemWidth;
 	}
 }
