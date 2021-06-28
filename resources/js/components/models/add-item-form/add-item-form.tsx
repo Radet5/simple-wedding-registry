@@ -4,12 +4,12 @@ import ImageSelector from "../image-selector/image-selector";
 
 import FormInput from "../form-input/form-input";
 import FormTextArea from "../form-text-area/form-text-area";
+import SubmitButton from "../button/submit-button/submit-button";
 
 import "./add-item-form.scss";
 
 interface AddItemFormProps {
     onSubmit: () => void;
-    onClose: () => void;
     edit?: boolean;
     initialValues?: {
         id: number;
@@ -33,6 +33,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
         ...props.initialValues,
     });
     const [picture, setPicture] = useState("");
+    const [errors, setErrors] = useState({});
 
     const updateForm = (event) => {
         const target = event.target;
@@ -54,6 +55,13 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 props.onSubmit();
                 setValues(defaultValues);
                 setPicture("");
+            })
+            .catch((exception) => {
+                if (exception.response.status == 422) {
+                    console.log(exception.response);
+                    console.log(exception.response.data.errors);
+                    setErrors(exception.response.data.errors);
+                }
             });
     };
     const addItem = (formD) => {
@@ -67,6 +75,13 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 props.onSubmit();
                 setValues(defaultValues);
                 setPicture("");
+            })
+            .catch((exception) => {
+                if (exception.response.status == 422) {
+                    console.log(exception.response);
+                    console.log(exception.response.data.errors);
+                    setErrors(exception.response.data.errors);
+                }
             });
     };
 
@@ -89,11 +104,6 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
         }
     };
 
-    const close = (event) => {
-        event.preventDefault();
-        props.onClose();
-    };
-
     return (
         <form className="o-addItemForm">
             <FormInput
@@ -103,6 +113,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 type="text"
                 onChange={updateForm}
                 label="Item Name"
+                error={errors["name"]}
             />
             <FormInput
                 id="item-price"
@@ -111,6 +122,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 type="number"
                 onChange={updateForm}
                 label="Item Price"
+                error={errors["price"]}
             />
             <FormInput
                 id="item-url"
@@ -128,14 +140,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 label="Item Description (optional)"
             />
             <ImageSelector file={picture} onSelectFile={setPicture} />
-            <input
-                className="o-addItemForm__submitButton"
-                type="submit"
-                onClick={submit}
-            />
-            <button className="o-addItemForm__closeButton" onClick={close}>
-                Close
-            </button>
+            <SubmitButton onClick={submit} />
         </form>
     );
 };

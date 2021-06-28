@@ -4,12 +4,16 @@ import axios from "axios";
 import Modal from "../models/modal/modal";
 import AddItemForm from "../models/add-item-form/add-item-form";
 import ItemList from "../models/item-list/item-list";
+import Popup from "../models/popup/popup";
+import Button from "../models/button/button";
 
 const apiURL = `/api/v1/`;
 
 const ItemControl = (items, setItems, fetchItems) => {
     return function AdminItemControl(props): JSX.Element {
         const [displayEditForm, setDisplayEditForm] = useState(false);
+        const [displayDeleteConfirmation, setDisplayDeleteConfirmation] =
+            useState(false);
         //const [csrf, setcsrf] = useState<Element | null>(null);
 
         //useEffect(() => {
@@ -18,9 +22,15 @@ const ItemControl = (items, setItems, fetchItems) => {
         //    setcsrf(token);
         //}, [])
 
-        const editItem = () => {
+        const toggleEditForm = (e) => {
+            e.preventDefault();
             console.log("edit", props.id);
             setDisplayEditForm(!displayEditForm);
+        };
+
+        const toggleDeleteConfimation = (e) => {
+            e.preventDefault();
+            setDisplayDeleteConfirmation(!displayDeleteConfirmation);
         };
 
         const deleteItem = () => {
@@ -38,19 +48,57 @@ const ItemControl = (items, setItems, fetchItems) => {
         };
 
         return (
-            <div>
-                <button onClick={editItem}>edit</button>
-                <button onClick={deleteItem}>delete</button>
+            <div className="m-item__control">
+                <div className="m-item__control__buttonContainer">
+                    <div
+                        style={{
+                            display: "flex",
+                            width: "fit-content",
+                            margin: "0 auto 0 0",
+                            gap: "5px",
+                        }}
+                    >
+                        <Button onClick={toggleDeleteConfimation}>
+                            delete
+                        </Button>
+                        <Button onClick={toggleEditForm}>edit</Button>
+                    </div>
+                </div>
+                {displayDeleteConfirmation ? (
+                    <Modal>
+                        <Popup
+                            title="Are you sure?"
+                            onClose={toggleDeleteConfimation}
+                        >
+                            <div
+                                style={{
+                                    width: "fit-content",
+                                    margin: "0 0 0 auto",
+                                }}
+                            >
+                                <Button
+                                    onClick={deleteItem}
+                                    modifiers={["accent"]}
+                                >
+                                    Yes
+                                </Button>
+                            </div>
+                        </Popup>
+                    </Modal>
+                ) : null}
                 {displayEditForm ? (
                     <Modal>
-                        <AddItemForm
-                            onSubmit={fetchItems}
-                            onClose={editItem}
-                            edit={true}
-                            initialValues={
-                                items.filter((item) => item.id == props.id)[0]
-                            }
-                        />
+                        <Popup title="Edit" onClose={toggleEditForm}>
+                            <AddItemForm
+                                onSubmit={fetchItems}
+                                edit={true}
+                                initialValues={
+                                    items.filter(
+                                        (item) => item.id == props.id
+                                    )[0]
+                                }
+                            />
+                        </Popup>
                     </Modal>
                 ) : null}
             </div>
@@ -83,10 +131,16 @@ const AdminPage = (): JSX.Element => {
     return (
         <div className="pageWrapper">
             {displayAddForm ? (
-                <AddItemForm onSubmit={fetchItems} onClose={toggleAddForm} />
+                <Modal>
+                    <Popup title="Add" onClose={toggleAddForm}>
+                        <AddItemForm onSubmit={fetchItems} />
+                    </Popup>
+                </Modal>
             ) : (
-                <div style={{ textAlign: "center" }} onClick={toggleAddForm}>
-                    Add Item
+                <div style={{ width: "fit-content", margin: "0 auto" }}>
+                    <Button onClick={toggleAddForm} modifiers={["accent"]}>
+                        Add Item
+                    </Button>
                 </div>
             )}
             <ItemList

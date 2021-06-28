@@ -8,7 +8,7 @@ import "./popup.scss";
 interface PopupProps {
     title: string;
     children: React.ReactNode;
-    onClose: () => void;
+    onClose: (event) => void;
 }
 
 const Popup = (props: PopupProps): JSX.Element => {

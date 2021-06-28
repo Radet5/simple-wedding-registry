@@ -93,6 +93,7 @@ class ItemController extends Controller
     {
         $success = false;
         Validator::make($request->all(), [
+            'name' => ['required'],
             'price' => ['required'],
         ])->validate();
         try{
@@ -157,6 +158,7 @@ class ItemController extends Controller
     {
         $success = false;
         Validator::make($request->all(), [
+            'name' => ['required'],
             'price' => ['required'],
         ])->validate();
         try{
