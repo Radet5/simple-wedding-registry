@@ -1,6 +1,7 @@
 import React from "react";
 
 import Modal from "../modal/modal";
+import Button from "../button/button";
 
 import "./popup.scss";
 
@@ -16,7 +17,9 @@ const Popup = (props: PopupProps): JSX.Element => {
             <div className="o-popup">
                 <div className="o-popup__title">{props.title}</div>
                 {props.children}
-                <button onClick={props.onClose}>Close</button>
+                <div className="o-popup__closeButtonContainer">
+                    <Button onClick={props.onClose}>Close</Button>
+                </div>
             </div>
         </Modal>
     );

@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@use "variables.scss" as *;
 
 @font-face {
 	font-family: 'Posyden';
@@ -15,7 +15,7 @@
 body {
 	font-family: 'Exo';
 	color: $baseColor;
-	background-color: black;
+	background-color: $backgroundColor;
 }
 
 a {
@@ -27,7 +27,7 @@ a {
 }
 
 .a-mainHeading {
-	background-color: black;
+	background-color: $backgroundColor;
 	position: fixed;
 	padding: 15px 0 0;
 	margin: 0;

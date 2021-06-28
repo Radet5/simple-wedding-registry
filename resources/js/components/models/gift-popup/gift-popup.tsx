@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ReserveForm from "../reserve-form/reserve-form";
 import BoughtForm from "../bought-form/bought-form";
 import Popup from "../popup/popup";
+import Button from "../button/button";
 
 import "./gift-popup.scss";
 
@@ -41,8 +42,12 @@ const GiftPopup = (props: GiftPopupProps): JSX.Element => {
                 <div className="o-giftPopup__prompt">
                     Have you purchased {props.name}?
                 </div>
-                <button onClick={boughtIt}>Yes</button>
-                <button onClick={didntBoughtIt}>No</button>
+                <div className="o-giftPopup__buttons">
+                    <Button onClick={didntBoughtIt}>No</Button>
+                    <Button onClick={boughtIt} modifiers={["accent"]}>
+                        Yes
+                    </Button>
+                </div>
             </div>
         ),
         "where?": (
@@ -69,8 +74,12 @@ const GiftPopup = (props: GiftPopupProps): JSX.Element => {
                         purchasing it.
                     </p>
                     <p>Would you like to reserve this gift?</p>
-                    <button onClick={reserveIt}>Yes</button>
-                    <button onClick={dontReserveIt}>No</button>
+                    <div className="o-giftPopup__buttons">
+                        <Button onClick={dontReserveIt}>No</Button>
+                        <Button onClick={reserveIt} modifiers={["accent"]}>
+                            Yes
+                        </Button>
+                    </div>
                 </div>
             </div>
         ),

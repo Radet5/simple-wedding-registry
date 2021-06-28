@@ -4,4 +4,9 @@
 	overflow: auto;
 	width: 300px;
 	padding: 5px;
+
+	&__closeButtonContainer:last-child {
+		margin: -28px auto 0 0;
+		width: fit-content;
+	}
 }

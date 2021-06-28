@@ -4,6 +4,7 @@ import History from "history";
 import Popup from "../popup/popup";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
+import SubmitButton from "../button/submit-button/submit-button";
 
 import "./see-reservations.scss";
 
@@ -56,7 +57,7 @@ const SeeReservations = (props: Props): JSX.Element => {
                             onChange={updateForm}
                             label="Email"
                         />
-                        <input type="submit" onClick={submit} />
+                        <SubmitButton onClick={submit} />
                     </form>
                 </Popup>
             ) : null}

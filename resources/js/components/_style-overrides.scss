@@ -1,12 +1,17 @@
+button, input {
+	font-family: inherit;
+	font-size: 100%;
+	line-height: 1.15;
+	margin: 0;
+	border: none;
+}
+
 button {
 	display: block;
 	box-sizing: border-box;
 	max-width: 100%;
 	max-height: 100%;
 	border: none;
-	font-family: inherit;
-	font-size: 100%;
-	line-height: 1.15;
 	overflow: visible;
 	text-transform: none;
 	cursor: pointer;

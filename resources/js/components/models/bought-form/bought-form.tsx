@@ -3,6 +3,7 @@ import axios from "axios";
 
 import FormInput from "../form-input/form-input";
 import FormTextArea from "../form-text-area/form-text-area";
+import SubmitButton from "../button/submit-button/submit-button";
 
 import "./bought-form.scss";
 
@@ -124,11 +125,7 @@ const BoughtForm = (props: BoughtFormProps): JSX.Element => {
                     onChange={updateForm}
                     label="Personal message"
                 />
-                <input
-                    className="o-addItemForm__submitButton"
-                    type="submit"
-                    onClick={submit}
-                />
+                <SubmitButton onClick={submit} />
             </form>
         </React.Fragment>
     );

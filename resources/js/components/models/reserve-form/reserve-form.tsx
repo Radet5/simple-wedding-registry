@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import FormInput from "../form-input/form-input";
+import SubmitButton from "../button/submit-button/submit-button";
 
 import "./reserve-form.scss";
 
@@ -84,11 +85,7 @@ const ReserveForm = (props: ReserveFormProps): JSX.Element => {
                     label="Email*"
                     error={errors["email"]}
                 />
-                <input
-                    className="o-addItemForm__submitButton"
-                    type="submit"
-                    onClick={submit}
-                />
+                <SubmitButton onClick={submit} />
             </form>
         </React.Fragment>
     );

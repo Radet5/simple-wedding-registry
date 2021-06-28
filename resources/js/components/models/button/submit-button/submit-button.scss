@@ -1,0 +1,16 @@
+@use "../../../variables" as *;
+@use "../../../style-overrides";
+
+.a-submitButton {
+	grid-column: 2/2;
+	white-space: nowrap;
+	color: $baseColor;
+	padding: 5px 10px;
+	background-color: $secondaryColor;
+	border-radius: 2px;
+
+	font-weight: 900;
+	font-size: 1.1em;
+
+	background-color: $accentColor;
+}

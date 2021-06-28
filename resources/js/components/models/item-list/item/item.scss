@@ -3,7 +3,7 @@
 
 .m-item {
 	width: $smallItemWidth;
-	border-color: #111111;
+	border-color: $secondaryBackgroundColor;
 	border-style: none none solid none;
 	border-width: 6px;
 	padding: 0 15px 15px;
