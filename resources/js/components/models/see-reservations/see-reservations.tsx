@@ -39,10 +39,12 @@ const SeeReservations = (props: Props): JSX.Element => {
 
     return (
         <React.Fragment>
-            <button onClick={openForm}>My Reserved Items</button>
+            <button className="a-seeReservations__button" onClick={openForm}>
+                My Reserved Items
+            </button>
             {displayForm ? (
                 <Popup onClose={closeForm} title="See Reservations">
-                    <form className="a-emailForm">
+                    <form className="a-seeReservations__emailForm">
                         <FormInput
                             type="email"
                             id="email"

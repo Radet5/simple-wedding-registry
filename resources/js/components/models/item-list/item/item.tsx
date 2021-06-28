@@ -28,12 +28,13 @@ const Item = (props: ItemProps): JSX.Element => {
                 <a href={`http://${item.url}`} className="m-item__link">
                     {item.url}
                 </a>
+                <props.control
+                    className="m-item__control"
+                    id={item.id}
+                    name={item.name}
+                    reservation={item.reservation}
+                />
             </div>
-            <props.control
-                id={item.id}
-                name={item.name}
-                reservation={item.reservation}
-            />
         </div>
     );
 };

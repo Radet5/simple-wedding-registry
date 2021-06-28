@@ -15,8 +15,13 @@ const RegistryItemControl = (props) => {
     };
 
     return (
-        <div>
-            <button onClick={toggleGiftPopup}>I want to give this!</button>
+        <div className="m-item__control">
+            <button
+                className="m-item__control__button"
+                onClick={toggleGiftPopup}
+            >
+                Give
+            </button>
             {displayGiftPopup ? (
                 <GiftPopup
                     id={props.id}
