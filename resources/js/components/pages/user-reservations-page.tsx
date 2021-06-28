@@ -6,6 +6,7 @@ import History from "history";
 import ItemList from "../models/item-list/item-list";
 import Popup from "../models/popup/popup";
 import BoughtForm from "../models/bought-form/bought-form";
+import Button from "../models/button/button";
 
 const ItemControl = (items, setItems) => {
     return function ReservationControl(props) {
@@ -90,18 +91,22 @@ const UserReservationsPage = (props: Props): JSX.Element => {
     };
 
     return (
-        <React.Fragment>
-            <div>Reservations for {email}</div>
+        <div className="pageWrapper">
+            <div style={{ textAlign: "center" }}>Reservations for {email}</div>
             <ItemList items={items} control={ItemControl(items, setItems)} />
             {items.length == 0 ? (
-                <p>
+                <p style={{ width: "300px", margin: "10px auto" }}>
                     Sorry no items were found reserved for this email address.
                     If it has been more than a week the reservation has expired,
                     otherwise be sure you entered your email address correctly.
                 </p>
             ) : null}
-            <button onClick={back}>Back</button>
-        </React.Fragment>
+            <div style={{ width: "fit-content", margin: "0 auto" }}>
+                <Button onClick={back} modifiers={["accent"]}>
+                    Back
+                </Button>
+            </div>
+        </div>
     );
 };
 
