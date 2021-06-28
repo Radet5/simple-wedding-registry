@@ -43,7 +43,15 @@ const ItemControl = (items, setItems) => {
 
         return (
             <React.Fragment>
-                <div style={{ display: "flex", flexDirection: "column", gap: "15px", margin: "15px 0", gridColumn: "1/3" }}>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "15px",
+                        margin: "15px 0",
+                        gridColumn: "1/3",
+                    }}
+                >
                     <Button
                         onClick={() =>
                             deleteReservation(
@@ -56,7 +64,9 @@ const ItemControl = (items, setItems) => {
                     >
                         Cancel Reservation
                     </Button>
-                <Button onClick={togglePopup} modifiers={["accent"]}>I bought this</Button>
+                    <Button onClick={togglePopup} modifiers={["accent"]}>
+                        I bought this
+                    </Button>
                 </div>
                 {displayPopup ? (
                     <Popup title="Bought it" onClose={togglePopup}>
