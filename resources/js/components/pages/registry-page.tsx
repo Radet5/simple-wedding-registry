@@ -89,7 +89,7 @@ const RegistryPage = (props: Props): JSX.Element => {
                 items={items}
                 control={RegistryItemControl}
             />
-            <div>Already Purcahsed:</div>
+            <div style={{ position: "sticky", top: "7em" }}>Already Purcahsed:</div>
             <ItemList
                 filters={[
                     { key: "purchase", operation: "notnull" },
