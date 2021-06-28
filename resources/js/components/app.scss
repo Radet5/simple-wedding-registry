@@ -30,12 +30,14 @@ a {
 	background-color: black;
 	position: fixed;
 	padding: 15px 0 0;
-	margin: 0 auto;
+	margin: 0;
+	width: 100%;
 	top: 0;
-	width: 100vw;
+	left: 0;
 	text-align: center;
 	font-family: 'Posyden';
 	font-size: 5em;
+	white-space: nowrap;
 	color: $accentColor
 };
 
@@ -46,6 +48,5 @@ a {
 
 	.a-mainHeading {
 		font-size: 7em;
-		white-space: nowrap;
 	}
 }

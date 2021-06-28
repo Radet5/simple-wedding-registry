@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AdminPage from "./pages/admin-page";
 import AddItemPage from "./pages/add-item-page";
 
+import "./app.scss";
+
 function AdminApp(): JSX.Element {
     return (
         <Router>

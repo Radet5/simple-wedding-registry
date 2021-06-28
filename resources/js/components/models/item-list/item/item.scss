@@ -2,10 +2,10 @@
 
 .m-item {
 	width: $smallItemWidth;
-	border-color: $baseColor;
-	border-style: none none groove none;
-	border-width: 1px;
-	padding: 0 0 15px;
+	border-color: #111111;
+	border-style: none none solid none;
+	border-width: 6px;
+	padding: 0 15px 15px;
 
 	display: flex;
 	justify-content: space-between;
@@ -14,7 +14,7 @@
 		margin-left: 5px;
 		display: grid;
 		grid-template-rows: 1.9em 2em;
-		column-gap: 10px;
+		column-gap: $smallColumnGap;
 		grid-template-columns: auto auto;
 		width: 100%;
 	}
@@ -33,7 +33,8 @@
 			border: none;
 			color: $baseColor;
 			font-family: inherit;
-			font-weight: 800;
+			font-weight: 900;
+			font-size: 1.1em;
 			padding: 5px 10px;
 			cursor: pointer;
 			background-color: $accentColor;
@@ -47,7 +48,7 @@
 	&__link {
 		margin-left: 5px;
 		grid-column: 1/1;
-		max-width: 100px;
+		max-width: 200px;
 	}
 
 	&__name {
@@ -63,13 +64,14 @@
 
 	&__price {
 		font-size: 0.9em;
+		font-style: italic;
 		margin-left: 5px;
 		color:$secondaryColor;
 		grid-column: 1/1;
 	}
 
 	&__img {
-		width: 100px;
+		width: $smallImgWidth;
 		border-radius: 8px;
 		grid-column: 2/2;
 		grid-row: 2/6;
@@ -79,5 +81,13 @@
 @media (min-width: $smallScreenWidth) {
 	.m-item {
 		width: $mediumItemWidth;
+
+		&__info {
+			column-gap: $mediumColumnGap;
+		}
+
+		&__img {
+			width: $mediumImgWidth;
+		}
 	}
 }
