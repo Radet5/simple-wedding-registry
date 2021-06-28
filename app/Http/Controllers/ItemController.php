@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -90,6 +91,9 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $success = false;
+        Validator::make($request->all(), [
+            'price' => ['required'],
+        ])->validate();
         try{
             $item = new Item();
             $item->name = $request['name'];
