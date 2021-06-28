@@ -98,8 +98,8 @@ class ItemController extends Controller
             $item = new Item();
             $item->name = $request['name'];
             $item->price = $request['price'];
-            $item->url = $request['url'];
-            $item->description = $request['description'];
+            if ($request['url']) { $item->url = $request['url']; }
+            if ($request['description']) { $item->description = $request['description']; }
             $item->save();
             Redis::del('items');
             if ($request->file('image')) {
