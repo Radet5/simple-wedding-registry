@@ -3,7 +3,14 @@
 	min-height: fit-content;
 	overflow: auto;
 	width: 300px;
-	padding: 5px;
+	padding: 5px 5px 10px;
+
+	&__title {
+		font-weight: 900;
+		font-size: 1.5em;
+		white-space: nowrap;
+		text-align: center;
+	}
 
 	&__closeButtonContainer:last-child {
 		margin: -28px auto 0 0;
