@@ -1,0 +1,24 @@
+@use "../../variables" as *;
+
+.a-button {
+
+	white-space: nowrap;
+
+	color: $baseColor;
+	padding: 5px 10px;
+	background-color: $secondaryColor;
+	border-radius: 2px;
+
+	&.-emphasis {
+		font-weight: 900;
+		font-size: 1.1em;
+	}
+
+	&.-accent {
+		background-color: $accentColor;
+	}
+}
+
+a.button:hover {
+	background-color: #be00ae;
+}

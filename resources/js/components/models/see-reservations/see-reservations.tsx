@@ -3,6 +3,7 @@ import History from "history";
 
 import Popup from "../popup/popup";
 import FormInput from "../form-input/form-input";
+import Button from "../button/button";
 
 import "./see-reservations.scss";
 
@@ -39,9 +40,11 @@ const SeeReservations = (props: Props): JSX.Element => {
 
     return (
         <React.Fragment>
-            <button className="a-seeReservations__button" onClick={openForm}>
-                My Reserved Items
-            </button>
+            <div className="a-seeReservations__buttonContainer">
+                <Button onClick={openForm} modifiers={["accent"]}>
+                    My Reserved Items
+                </Button>
+            </div>
             {displayForm ? (
                 <Popup onClose={closeForm} title="See Reservations">
                     <form className="a-seeReservations__emailForm">

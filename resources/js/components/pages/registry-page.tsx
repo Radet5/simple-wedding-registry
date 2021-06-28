@@ -5,6 +5,7 @@ import History from "history";
 import ItemList from "../models/item-list/item-list";
 import GiftPopup from "../models/gift-popup/gift-popup";
 import SeeReservations from "../models/see-reservations/see-reservations";
+import Button from "../models/button/button";
 
 const RegistryItemControl = (props) => {
     const [displayGiftPopup, setDisplayGiftPopup] = useState(false);
@@ -16,12 +17,14 @@ const RegistryItemControl = (props) => {
 
     return (
         <div className="m-item__control">
-            <button
-                className="m-item__control__button"
-                onClick={toggleGiftPopup}
-            >
-                Give
-            </button>
+            <div className="m-item__control__buttonContainer">
+                <Button
+                    onClick={toggleGiftPopup}
+                    modifiers={["emphasis", "accent"]}
+                >
+                    Give
+                </Button>
+            </div>
             {displayGiftPopup ? (
                 <GiftPopup
                     id={props.id}
