@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redis;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -120,7 +121,7 @@ class ItemController extends Controller
             $success = false;
         }
 
-        return response()->json(['success'=>$success, 'received'=>$request, 'item'=>$item]);
+        return response()->json(['success'=>$success, 'item'=>$item]);
     }
 
     /**
@@ -154,7 +155,36 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $success = false;
+        Validator::make($request->all(), [
+            'price' => ['required'],
+        ])->validate();
+        try{
+            $item->name = $request['name'];
+            $item->price = $request['price'];
+            if ($request['url']) { $item->url = $request['url']; }
+            if ($request['description']) { $item->description = $request['description']; }
+            $item->save();
+            Redis::del('items');
+            if ($request->file('image')) {
+                $tmpPath = $request->file('image')->store('tmp_images');
+                Image::make(Storage::get($tmpPath))
+                    ->resize(200, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })
+                    ->save(storage_path('/app/public/item_images/item-'.$item->id.'.jpg'));
+                Storage::delete($tmpPath);
+                $item->public_img_path = Storage::url('item_images/item-'.$item->id.'.jpg');
+                $item->save();
+            }
+//          $path = $request->file('image')->store('public');
+            $success = true;
+        } catch (Exception $e) {
+            $success = false;
+        }
+
+        return response()->json(['success'=>$success, 'item'=>$item]);
     }
 
     /**

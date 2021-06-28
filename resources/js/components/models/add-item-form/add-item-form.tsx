@@ -10,6 +10,14 @@ import "./add-item-form.scss";
 interface AddItemFormProps {
     onSubmit: () => void;
     onClose: () => void;
+    edit?: boolean;
+    initialValues?: {
+        id: number;
+        name: string;
+        url: string;
+        description: string;
+        price: string;
+    };
 }
 
 const defaultValues = {
@@ -20,7 +28,10 @@ const defaultValues = {
 };
 
 const AddItemForm = (props: AddItemFormProps): JSX.Element => {
-    const [values, setValues] = useState(defaultValues);
+    const [values, setValues] = useState({
+        ...defaultValues,
+        ...props.initialValues,
+    });
     const [picture, setPicture] = useState("");
 
     const updateForm = (event) => {
@@ -31,14 +42,21 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
         setValues({ ...values, [name]: value });
     };
 
-    const submit = (event) => {
-        event.preventDefault();
-        console.log("submit");
-        const formD = new FormData();
-        Object.keys(values).forEach((key) => {
-            formD.append(key, values[key]);
-        });
-        formD.append("image", picture);
+    const editItem = (formD, itemId) => {
+        formD.append("_method", "put");
+        axios
+            .post(`/api/v1/items/${itemId}`, formD, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+                props.onSubmit();
+                setValues(defaultValues);
+                setPicture("");
+            });
+    };
+    const addItem = (formD) => {
         axios
             .post("/api/v1/items", formD, {
                 headers: { "Content-Type": "multipart/form-data" },
@@ -50,6 +68,25 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 setValues(defaultValues);
                 setPicture("");
             });
+    };
+
+    const submit = (event) => {
+        event.preventDefault();
+        console.log("submit");
+        const formD = new FormData();
+        Object.keys(values).forEach((key) => {
+            formD.append(key, values[key]);
+        });
+        formD.append("image", picture);
+        if (props.edit) {
+            if (!props.initialValues) {
+                console.error("Initial values undefined in edit mode");
+                return false;
+            }
+            editItem(formD, props.initialValues.id);
+        } else {
+            addItem(formD);
+        }
     };
 
     const close = (event) => {
@@ -90,7 +127,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 onChange={updateForm}
                 label="Item Description (optional)"
             />
-            <ImageSelector onSelectFile={setPicture} />
+            <ImageSelector file={picture} onSelectFile={setPicture} />
             <input
                 className="o-addItemForm__submitButton"
                 type="submit"

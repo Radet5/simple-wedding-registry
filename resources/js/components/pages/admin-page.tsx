@@ -7,7 +7,7 @@ import ItemList from "../models/item-list/item-list";
 
 const apiURL = `/api/v1/`;
 
-const ItemControl = (items, setItems) => {
+const ItemControl = (items, setItems, fetchItems) => {
     return function AdminItemControl(props): JSX.Element {
         const [displayEditForm, setDisplayEditForm] = useState(false);
         //const [csrf, setcsrf] = useState<Element | null>(null);
@@ -44,8 +44,12 @@ const ItemControl = (items, setItems) => {
                 {displayEditForm ? (
                     <Modal>
                         <AddItemForm
-                            onSubmit={() => console.log("Submit")}
+                            onSubmit={fetchItems}
                             onClose={editItem}
+                            edit={true}
+                            initialValues={
+                                items.filter((item) => item.id == props.id)[0]
+                            }
                         />
                     </Modal>
                 ) : null}
@@ -86,7 +90,7 @@ const AdminPage = (): JSX.Element => {
                 </div>
             )}
             <ItemList
-                control={ItemControl(items, setItems)}
+                control={ItemControl(items, setItems, fetchItems)}
                 filters={[]}
                 items={items}
             />

@@ -3,7 +3,7 @@ import React from "react";
 import "./modal.scss";
 
 interface ModalProps {
-    children: JSX.Element;
+    children: React.ReactNode;
 }
 
 const Modal = (props: ModalProps): JSX.Element => {
