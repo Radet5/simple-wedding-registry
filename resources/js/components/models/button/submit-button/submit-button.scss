@@ -14,3 +14,13 @@
 
 	background-color: $accentColor;
 }
+
+.a-submitButton:hover {
+	box-shadow: inset 0px 0px 0px 2px $baseColor;
+	box-sizing: border-box;
+}
+
+.a-submitButton:active {
+	box-shadow: inset 0px 0px 0px 2px $secondaryColor;
+	box-sizing: border-box;
+}

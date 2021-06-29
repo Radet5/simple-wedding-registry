@@ -6,6 +6,7 @@ import ItemList from "../models/item-list/item-list";
 import GiftPopup from "../models/gift-popup/gift-popup";
 import SeeReservations from "../models/see-reservations/see-reservations";
 import Button from "../models/button/button";
+import Accordion from "../models/accordion/accordion";
 
 const RegistryItemControl = (props) => {
     const [displayGiftPopup, setDisplayGiftPopup] = useState(false);
@@ -89,24 +90,26 @@ const RegistryPage = (props: Props): JSX.Element => {
                 items={items}
                 control={RegistryItemControl}
             />
-            <div style={{ position: "sticky", top: "7em" }}>Already Purcahsed:</div>
-            <ItemList
-                filters={[
-                    { key: "purchase", operation: "notnull" },
-                    { key: "reservation", operation: "null" },
-                ]}
-                items={items}
-                control={() => <div></div>}
-            />
-            <div>Reserved:</div>
-            <ItemList
-                filters={[
-                    { key: "purchase", operation: "null" },
-                    { key: "reservation", operation: "notnull" },
-                ]}
-                items={items}
-                control={() => <div></div>}
-            />
+            <Accordion text="Reserved">
+                <ItemList
+                    filters={[
+                        { key: "purchase", operation: "null" },
+                        { key: "reservation", operation: "notnull" },
+                    ]}
+                    items={items}
+                    control={() => <div></div>}
+                />
+            </Accordion>
+            <Accordion text="Already Purcahsed">
+                <ItemList
+                    filters={[
+                        { key: "purchase", operation: "notnull" },
+                        { key: "reservation", operation: "null" },
+                    ]}
+                    items={items}
+                    control={() => <div></div>}
+                />
+            </Accordion>
         </div>
     );
 };

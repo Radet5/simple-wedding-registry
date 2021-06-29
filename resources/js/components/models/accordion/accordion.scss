@@ -1,0 +1,39 @@
+@use "../../variables" as *;
+
+.m-accordion {
+
+	&__bar {
+		z-index: 1;
+		position: sticky;
+		top: 6em;
+
+		padding: 0;
+		background-color: $accentColor;
+		margin-left: -8px;
+		width: 100vw;
+
+		border-top: 5px solid $secondaryBackgroundColor;
+		border-bottom: 5px solid $secondaryBackgroundColor;
+
+		&__text {
+			padding: 10px 20px;
+		}
+	}
+	&__bar:hover {
+		border-color: $baseColor;
+	}
+	&__bar:active {
+		border-color: $secondaryColor;
+	}
+}
+
+@media (min-width: $smallScreenWidth) {
+	.m-accordion {
+
+		&__bar{
+			top: 8.5em;
+			width: $mediumItemWidth+100px;
+			margin: 0 auto;
+		}
+	}
+}

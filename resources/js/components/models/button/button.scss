@@ -19,6 +19,20 @@
 	}
 }
 
-a.button:hover {
-	background-color: #be00ae;
+.a-button:hover {
+	box-shadow: inset 0px 0px 0px 2px $accentColor;
+	box-sizing: border-box;
+
+	&.-accent {
+		box-shadow: inset 0px 0px 0px 2px $baseColor;
+	}
+}
+
+.a-button:active {
+	box-shadow: inset 0px 0px 0px 2px $baseColor;
+	box-sizing: border-box;
+
+	&.-accent {
+		box-shadow: inset 0px 0px 0px 2px $secondaryColor;
+	}
 }
