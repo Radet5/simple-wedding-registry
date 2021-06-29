@@ -1,0 +1,13 @@
+@use "../../variables" as *;
+
+.a-uploadStatusMsg {
+	padding: 5px;
+
+	&.-error {
+		color: $accentColor ;
+	}
+
+	&.-success {
+		color: #119822
+	}
+}

@@ -17,8 +17,10 @@ const ImageSelector = (props: ImageSelectorProps): JSX.Element => {
         }
     }, [props.file]);
     const [preview, setPreview] = useState("");
+    const [status, setStatus] = useState("");
 
     const selectFile = (event) => {
+        setStatus("resizing");
         let fileInput = false;
         if (event.target.files[0]) {
             fileInput = true;
@@ -37,10 +39,18 @@ const ImageSelector = (props: ImageSelectorProps): JSX.Element => {
                     },
                     "blob"
                 );
+                setStatus("done");
             } catch (err) {
+                setStatus("error");
                 console.log(err);
             }
         }
+    };
+
+    const statusDisplay = {
+        done: <img className="m-imageSelector__previewImage" src={preview} />,
+        resizing: <div>Resizing... Please wait</div>,
+        error: <div>Error loading image</div>,
     };
 
     return (
@@ -51,7 +61,7 @@ const ImageSelector = (props: ImageSelectorProps): JSX.Element => {
             >
                 Item Image
             </label>
-            <img className="m-imageSelector__previewImage" src={preview} />
+            {statusDisplay[status]}
             <input
                 id="m-imageSelector__input"
                 className="m-imageSelector__input"

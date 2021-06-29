@@ -4,6 +4,11 @@
     grid-gap: 12px 12px;
     align-items: center;
 
+    &__statusContainer {
+        width: fit-content;
+        margin: 10px auto;;
+    }
+
     &__imageUploader {
         grid-column: 1/3;
     }

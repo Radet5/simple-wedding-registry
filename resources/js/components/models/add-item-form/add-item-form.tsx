@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ImageSelector from "../image-selector/image-selector";
 
 import FormInput from "../form-input/form-input";
 import FormTextArea from "../form-text-area/form-text-area";
 import SubmitButton from "../button/submit-button/submit-button";
+import UploadStatusMsg from "../upload-status-msg/upload-status-msg";
 
 import "./add-item-form.scss";
 
@@ -34,6 +35,19 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
     });
     const [picture, setPicture] = useState("");
     const [errors, setErrors] = useState({});
+    const [uploadStatus, setUploadStatus] = useState("unsubmitted");
+
+    useEffect(() => {
+        if (uploadStatus == "success") {
+            const timeout = setTimeout(
+                () => setUploadStatus("unsubmitted"),
+                5000
+            );
+            return () => {
+                clearTimeout(timeout);
+            };
+        }
+    });
 
     const updateForm = (event) => {
         const target = event.target;
@@ -55,11 +69,14 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 props.onSubmit();
                 setValues(defaultValues);
                 setPicture("");
+                setErrors({});
+                setUploadStatus("success");
             })
             .catch((exception) => {
                 if (exception.response.status == 422) {
                     console.log(exception.response);
                     console.log(exception.response.data.errors);
+                    setUploadStatus("error");
                     setErrors(exception.response.data.errors);
                 }
             });
@@ -75,11 +92,14 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
                 props.onSubmit();
                 setValues(defaultValues);
                 setPicture("");
+                setErrors({});
+                setUploadStatus("success");
             })
             .catch((exception) => {
                 if (exception.response.status == 422) {
                     console.log(exception.response);
                     console.log(exception.response.data.errors);
+                    setUploadStatus("error");
                     setErrors(exception.response.data.errors);
                 }
             });
@@ -87,6 +107,7 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
 
     const submit = (event) => {
         event.preventDefault();
+        setUploadStatus("uploading");
         console.log("submit");
         const formD = new FormData();
         Object.keys(values).forEach((key) => {
@@ -105,43 +126,48 @@ const AddItemForm = (props: AddItemFormProps): JSX.Element => {
     };
 
     return (
-        <form className="o-addItemForm">
-            <FormInput
-                id="item-name"
-                value={values["name"]}
-                name="name"
-                type="text"
-                onChange={updateForm}
-                label="Item Name"
-                error={errors["name"]}
-            />
-            <FormInput
-                id="item-price"
-                value={values["price"]}
-                name="price"
-                type="number"
-                onChange={updateForm}
-                label="Item Price"
-                error={errors["price"]}
-            />
-            <FormInput
-                id="item-url"
-                value={values["url"]}
-                name="url"
-                type="text"
-                onChange={updateForm}
-                label="Item Link"
-            />
-            <FormTextArea
-                id="item-description"
-                value={values["description"]}
-                name="description"
-                onChange={updateForm}
-                label="Item Description (optional)"
-            />
-            <ImageSelector file={picture} onSelectFile={setPicture} />
-            <SubmitButton onClick={submit} />
-        </form>
+        <React.Fragment>
+            <div className="o-addItemForm__statusContainer">
+                <UploadStatusMsg status={uploadStatus} />
+            </div>
+            <form className="o-addItemForm">
+                <FormInput
+                    id="item-name"
+                    value={values["name"]}
+                    name="name"
+                    type="text"
+                    onChange={updateForm}
+                    label="Item Name"
+                    error={errors["name"]}
+                />
+                <FormInput
+                    id="item-price"
+                    value={values["price"]}
+                    name="price"
+                    type="number"
+                    onChange={updateForm}
+                    label="Item Price"
+                    error={errors["price"]}
+                />
+                <FormInput
+                    id="item-url"
+                    value={values["url"]}
+                    name="url"
+                    type="text"
+                    onChange={updateForm}
+                    label="Item Link"
+                />
+                <FormTextArea
+                    id="item-description"
+                    value={values["description"]}
+                    name="description"
+                    onChange={updateForm}
+                    label="Item Description (optional)"
+                />
+                <ImageSelector file={picture} onSelectFile={setPicture} />
+                <SubmitButton onClick={submit} />
+            </form>
+        </React.Fragment>
     );
 };
 
