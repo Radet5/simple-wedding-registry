@@ -21,7 +21,8 @@ const Accordion = (props: AccordionProps): JSX.Element => {
                     onClick={toggleAccordion}
                     className="m-accordion__bar__text"
                 >
-                    {props.text}
+                    <div>{props.text}</div>
+                    <div>{accordionOpen ? "[ - ]" : "[ + ]"}</div>
                 </div>
             </div>
             <div className="m-accordion__contents">
