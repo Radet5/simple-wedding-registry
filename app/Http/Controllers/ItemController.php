@@ -107,7 +107,7 @@ class ItemController extends Controller
             if ($request->file('image')) {
                 $tmpPath = $request->file('image')->store('tmp_images');
                 Image::make(Storage::get($tmpPath))
-                    ->resize(200, null, function ($constraint) {
+                    ->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })
@@ -171,7 +171,7 @@ class ItemController extends Controller
             if ($request->file('image')) {
                 $tmpPath = $request->file('image')->store('tmp_images');
                 Image::make(Storage::get($tmpPath))
-                    ->resize(200, null, function ($constraint) {
+                    ->resize(400, null, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
                     })

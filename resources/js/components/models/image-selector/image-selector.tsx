@@ -27,7 +27,7 @@ const ImageSelector = (props: ImageSelectorProps): JSX.Element => {
             try {
                 Resizer.imageFileResizer(
                     event.target.files[0],
-                    200,
+                    400,
                     800,
                     "JPEG",
                     100,
