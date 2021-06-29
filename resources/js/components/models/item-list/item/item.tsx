@@ -9,6 +9,14 @@ interface ItemProps {
     control: (props) => JSX.Element;
 }
 
+const strip = (url) => {
+	let indexOfDoubleSlash = url.search(/\/\//);
+	let indexOfSingleSlash = url.search(/\w\/\w/);
+	let start = indexOfDoubleSlash >=0 ? indexOfDoubleSlash+2 : 0;
+	let end = indexOfSingleSlash >=0 ? indexOfSingleSlash+1 : undefined;
+	return(url.slice(start,end));
+}
+
 const Item = (props: ItemProps): JSX.Element => {
     const { item } = props;
     return (
@@ -25,8 +33,8 @@ const Item = (props: ItemProps): JSX.Element => {
                 {item.description ? (
                     <div className="m-item__description">{`${item.description}`}</div>
                 ) : null}
-                <a href={`http://${item.url}`} className="m-item__link">
-                    {item.url}
+                <a href={item.url.slice(0,4) != "http" ? `http://${item.url}`: item.url} className="m-item__link">
+                    {strip(item.url)}
                 </a>
                 <props.control
                     className="m-item__control"

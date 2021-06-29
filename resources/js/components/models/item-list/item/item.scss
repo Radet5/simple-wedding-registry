@@ -14,7 +14,6 @@
 	&__info {
 		margin-left: 5px;
 		display: grid;
-		grid-template-rows: 1.9em 2em;
 		column-gap: $smallColumnGap;
 		grid-template-columns: auto auto;
 		width: 100%;
@@ -38,7 +37,6 @@
 	&__name {
 		font-weight: 900;
 		font-size: 1.5em;
-		white-space: nowrap;
 		grid-column: 1/1;
 	}
 
@@ -49,7 +47,7 @@
 	&__price {
 		font-size: 0.9em;
 		font-style: italic;
-		margin-left: 5px;
+		margin: 0px 0px 10px 5px;
 		color:$secondaryColor;
 		grid-column: 1/1;
 	}
