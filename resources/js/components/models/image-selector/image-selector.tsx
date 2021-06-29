@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Resizer from "react-image-file-resizer";
 
 import "./image-selector.scss";
 
@@ -18,7 +19,28 @@ const ImageSelector = (props: ImageSelectorProps): JSX.Element => {
     const [preview, setPreview] = useState("");
 
     const selectFile = (event) => {
-        props.onSelectFile(event.target.files[0]);
+        let fileInput = false;
+        if (event.target.files[0]) {
+            fileInput = true;
+        }
+        if (fileInput) {
+            try {
+                Resizer.imageFileResizer(
+                    event.target.files[0],
+                    200,
+                    800,
+                    "JPEG",
+                    100,
+                    0,
+                    (uri) => {
+                        props.onSelectFile(uri);
+                    },
+                    "blob"
+                );
+            } catch (err) {
+                console.log(err);
+            }
+        }
     };
 
     return (
