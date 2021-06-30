@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <! — csrf token →
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Your Website Title</title>
+<title>Wedding Registry - Hannibal-Five</title>
 <! — styles →
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
