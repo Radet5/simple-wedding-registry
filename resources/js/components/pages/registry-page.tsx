@@ -100,7 +100,7 @@ const RegistryPage = (props: Props): JSX.Element => {
                     control={() => <div></div>}
                 />
             </Accordion>
-            <Accordion text="Already Purcahsed">
+            <Accordion text="Already Purchased">
                 <ItemList
                     filters={[
                         { key: "purchase", operation: "notnull" },
